@@ -1,6 +1,7 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import Script from 'next/script';
 
 import MuiThemeRegistry from '@/components/theme-registry/MuiThemeRegistry';
 
@@ -20,6 +21,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <MuiThemeRegistry>{children}</MuiThemeRegistry>
+
+        <Script src="/scripts/grafana.js" />
       </body>
     </html>
   );
