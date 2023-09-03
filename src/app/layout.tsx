@@ -1,5 +1,6 @@
 import './globals.css';
 import type { Metadata } from 'next';
+import Script from 'next/script';
 
 import { MuiThemeRegistry } from '@/components/theme-registry/MuiThemeRegistry';
 import { PlusJakarta } from '@/font';
@@ -18,6 +19,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={PlusJakarta.className}>
         <MuiThemeRegistry>{children}</MuiThemeRegistry>
+
+        <Script src="/scripts/grafana.js" />
       </body>
     </html>
   );
