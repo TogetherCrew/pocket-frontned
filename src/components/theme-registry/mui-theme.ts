@@ -1,7 +1,19 @@
 import { PaletteMode } from '@mui/material';
 import { createTheme, ThemeOptions } from '@mui/material/styles';
+import resolveConfig from 'tailwindcss/resolveConfig';
 
-import baseTheme from '@/../theme';
+import tailwindConfigModule from '@/../tailwind.config';
+
+export interface TailwindColors {
+  [p: string]: {
+    DEFAULT: string;
+    light: string;
+    dark: string;
+  };
+}
+
+const tailwindConfig = resolveConfig(tailwindConfigModule);
+const themeColors = tailwindConfig?.theme?.colors as TailwindColors;
 
 // https://mui.com/material-ui/customization/palette/#typescript
 declare module '@mui/material/styles' {
@@ -80,88 +92,88 @@ declare module '@mui/material/styles' {
 
 export const lightPalette: ThemeOptions['palette'] = {
   mode: 'light',
-  primary: { main: baseTheme?.colors?.primary?.light },
-  onPrimary: { main: baseTheme?.colors?.onPrimary?.light },
-  primaryContainer: { main: baseTheme?.colors?.primaryContainer?.light },
-  onPrimaryContainer: { main: baseTheme?.colors?.onPrimaryContainer?.light },
-  primaryFixed: { main: baseTheme?.colors?.primaryFixed?.light },
-  onPrimaryFixed: { main: baseTheme?.colors?.onPrimaryFixed?.light },
-  primaryFixedDim: { main: baseTheme?.colors?.primaryFixedDim?.light },
+  primary: { main: themeColors?.primary?.light },
+  onPrimary: { main: themeColors?.onPrimary?.light },
+  primaryContainer: { main: themeColors?.primaryContainer?.light },
+  onPrimaryContainer: { main: themeColors?.onPrimaryContainer?.light },
+  primaryFixed: { main: themeColors?.primaryFixed?.light },
+  onPrimaryFixed: { main: themeColors?.onPrimaryFixed?.light },
+  primaryFixedDim: { main: themeColors?.primaryFixedDim?.light },
   onPrimaryFixedVariant: {
-    main: baseTheme?.colors?.onPrimaryFixedVariant?.light,
+    main: themeColors?.onPrimaryFixedVariant?.light,
   },
 
-  secondary: { main: baseTheme?.colors?.secondary?.light },
-  onSecondary: { main: baseTheme?.colors?.onSecondary?.light },
-  secondaryContainer: { main: baseTheme?.colors?.secondaryContainer?.light },
+  secondary: { main: themeColors?.secondary?.light },
+  onSecondary: { main: themeColors?.onSecondary?.light },
+  secondaryContainer: { main: themeColors?.secondaryContainer?.light },
   onSecondaryContainer: {
-    main: baseTheme?.colors?.onSecondaryContainer?.light,
+    main: themeColors?.onSecondaryContainer?.light,
   },
-  secondaryFixed: { main: baseTheme?.colors?.secondaryFixed?.light },
-  onSecondaryFixed: { main: baseTheme?.colors?.onSecondaryFixed?.light },
-  secondaryFixedDim: { main: baseTheme?.colors?.secondaryFixedDim?.light },
+  secondaryFixed: { main: themeColors?.secondaryFixed?.light },
+  onSecondaryFixed: { main: themeColors?.onSecondaryFixed?.light },
+  secondaryFixedDim: { main: themeColors?.secondaryFixedDim?.light },
   onSecondaryFixedVariant: {
-    main: baseTheme?.colors?.onSecondaryFixedVariant?.light,
+    main: themeColors?.onSecondaryFixedVariant?.light,
   },
 
-  tertiary: { main: baseTheme?.colors?.tertiary?.light },
-  onTertiary: { main: baseTheme?.colors?.onTertiary?.light },
-  tertiaryContainer: { main: baseTheme?.colors?.tertiaryContainer?.light },
-  onTertiaryContainer: { main: baseTheme?.colors?.onTertiaryContainer?.light },
-  tertiaryFixed: { main: baseTheme?.colors?.tertiaryFixed?.light },
-  onTertiaryFixed: { main: baseTheme?.colors?.onTertiaryFixed?.light },
-  tertiaryFixedDim: { main: baseTheme?.colors?.tertiaryFixedDim?.light },
+  tertiary: { main: themeColors?.tertiary?.light },
+  onTertiary: { main: themeColors?.onTertiary?.light },
+  tertiaryContainer: { main: themeColors?.tertiaryContainer?.light },
+  onTertiaryContainer: { main: themeColors?.onTertiaryContainer?.light },
+  tertiaryFixed: { main: themeColors?.tertiaryFixed?.light },
+  onTertiaryFixed: { main: themeColors?.onTertiaryFixed?.light },
+  tertiaryFixedDim: { main: themeColors?.tertiaryFixedDim?.light },
   onTertiaryFixedVariant: {
-    main: baseTheme?.colors?.onTertiaryFixedVariant?.light,
+    main: themeColors?.onTertiaryFixedVariant?.light,
   },
 
-  error: { main: baseTheme?.colors?.error?.light },
-  onError: { main: baseTheme?.colors?.onError?.light },
-  errorContainer: { main: baseTheme?.colors?.errorContainer?.light },
-  onErrorContainer: { main: baseTheme?.colors?.onErrorContainer?.light },
+  error: { main: themeColors?.error?.light },
+  onError: { main: themeColors?.onError?.light },
+  errorContainer: { main: themeColors?.errorContainer?.light },
+  onErrorContainer: { main: themeColors?.onErrorContainer?.light },
 };
 
 export const darkPalette: ThemeOptions['palette'] = {
   mode: 'dark',
-  primary: { main: baseTheme?.colors?.primary?.dark },
-  onPrimary: { main: baseTheme?.colors?.onPrimary?.dark },
-  primaryContainer: { main: baseTheme?.colors?.primaryContainer?.dark },
-  onPrimaryContainer: { main: baseTheme?.colors?.onPrimaryContainer?.dark },
-  primaryFixed: { main: baseTheme?.colors?.primaryFixed?.dark },
-  onPrimaryFixed: { main: baseTheme?.colors?.onPrimaryFixed?.dark },
-  primaryFixedDim: { main: baseTheme?.colors?.primaryFixedDim?.dark },
+  primary: { main: themeColors?.primary?.dark },
+  onPrimary: { main: themeColors?.onPrimary?.dark },
+  primaryContainer: { main: themeColors?.primaryContainer?.dark },
+  onPrimaryContainer: { main: themeColors?.onPrimaryContainer?.dark },
+  primaryFixed: { main: themeColors?.primaryFixed?.dark },
+  onPrimaryFixed: { main: themeColors?.onPrimaryFixed?.dark },
+  primaryFixedDim: { main: themeColors?.primaryFixedDim?.dark },
   onPrimaryFixedVariant: {
-    main: baseTheme?.colors?.onPrimaryFixedVariant?.dark,
+    main: themeColors?.onPrimaryFixedVariant?.dark,
   },
 
-  secondary: { main: baseTheme?.colors?.secondary?.dark },
-  onSecondary: { main: baseTheme?.colors?.onSecondary?.dark },
-  secondaryContainer: { main: baseTheme?.colors?.secondaryContainer?.dark },
+  secondary: { main: themeColors?.secondary?.dark },
+  onSecondary: { main: themeColors?.onSecondary?.dark },
+  secondaryContainer: { main: themeColors?.secondaryContainer?.dark },
   onSecondaryContainer: {
-    main: baseTheme?.colors?.onSecondaryContainer?.dark,
+    main: themeColors?.onSecondaryContainer?.dark,
   },
-  secondaryFixed: { main: baseTheme?.colors?.secondaryFixed?.dark },
-  onSecondaryFixed: { main: baseTheme?.colors?.onSecondaryFixed?.dark },
-  secondaryFixedDim: { main: baseTheme?.colors?.secondaryFixedDim?.dark },
+  secondaryFixed: { main: themeColors?.secondaryFixed?.dark },
+  onSecondaryFixed: { main: themeColors?.onSecondaryFixed?.dark },
+  secondaryFixedDim: { main: themeColors?.secondaryFixedDim?.dark },
   onSecondaryFixedVariant: {
-    main: baseTheme?.colors?.onSecondaryFixedVariant?.dark,
+    main: themeColors?.onSecondaryFixedVariant?.dark,
   },
 
-  tertiary: { main: baseTheme?.colors?.tertiary?.dark },
-  onTertiary: { main: baseTheme?.colors?.onTertiary?.dark },
-  tertiaryContainer: { main: baseTheme?.colors?.tertiaryContainer?.dark },
-  onTertiaryContainer: { main: baseTheme?.colors?.onTertiaryContainer?.dark },
-  tertiaryFixed: { main: baseTheme?.colors?.tertiaryFixed?.dark },
-  onTertiaryFixed: { main: baseTheme?.colors?.onTertiaryFixed?.dark },
-  tertiaryFixedDim: { main: baseTheme?.colors?.tertiaryFixedDim?.dark },
+  tertiary: { main: themeColors?.tertiary?.dark },
+  onTertiary: { main: themeColors?.onTertiary?.dark },
+  tertiaryContainer: { main: themeColors?.tertiaryContainer?.dark },
+  onTertiaryContainer: { main: themeColors?.onTertiaryContainer?.dark },
+  tertiaryFixed: { main: themeColors?.tertiaryFixed?.dark },
+  onTertiaryFixed: { main: themeColors?.onTertiaryFixed?.dark },
+  tertiaryFixedDim: { main: themeColors?.tertiaryFixedDim?.dark },
   onTertiaryFixedVariant: {
-    main: baseTheme?.colors?.onTertiaryFixedVariant?.dark,
+    main: themeColors?.onTertiaryFixedVariant?.dark,
   },
 
-  error: { main: baseTheme?.colors?.error?.dark },
-  onError: { main: baseTheme?.colors?.onError?.dark },
-  errorContainer: { main: baseTheme?.colors?.errorContainer?.dark },
-  onErrorContainer: { main: baseTheme?.colors?.onErrorContainer?.dark },
+  error: { main: themeColors?.error?.dark },
+  onError: { main: themeColors?.onError?.dark },
+  errorContainer: { main: themeColors?.errorContainer?.dark },
+  onErrorContainer: { main: themeColors?.onErrorContainer?.dark },
 };
 
 const getMuiTheme = (mode: PaletteMode = 'light') => {
