@@ -32,6 +32,21 @@ declare module '@mui/material/styles' {
     errorContainer: Palette['primary'];
     onErrorContainer: Palette['primary'];
 
+    surface: Palette['primary'];
+    onSurface: Palette['primary'];
+    surfaceVariant: Palette['primary'];
+    onSurfaceVariant: Palette['primary'];
+    inverseSurface: Palette['primary'];
+    inverseOnSurface: Palette['primary'];
+
+    surfaceContainerHighest: Palette['primary'];
+    surfaceContainerHigh: Palette['primary'];
+    surfaceContainer: Palette['primary'];
+    surfaceContainerLow: Palette['primary'];
+    surfaceContainerLowest: Palette['primary'];
+    surfaceBright: Palette['primary'];
+    surfaceDim: Palette['primary'];
+
     green: Palette['primary'];
     orange: Palette['primary'];
     pink: Palette['primary'];
@@ -67,6 +82,21 @@ declare module '@mui/material/styles' {
     onError: PaletteOptions['primary'];
     errorContainer: PaletteOptions['primary'];
     onErrorContainer: PaletteOptions['primary'];
+
+    surface: PaletteOptions['primary'];
+    onSurface: PaletteOptions['primary'];
+    surfaceVariant: PaletteOptions['primary'];
+    onSurfaceVariant: PaletteOptions['primary'];
+    inverseSurface: PaletteOptions['primary'];
+    inverseOnSurface: PaletteOptions['primary'];
+
+    surfaceContainerHighest: PaletteOptions['primary'];
+    surfaceContainerHigh: PaletteOptions['primary'];
+    surfaceContainer: PaletteOptions['primary'];
+    surfaceContainerLow: PaletteOptions['primary'];
+    surfaceContainerLowest: PaletteOptions['primary'];
+    surfaceBright: PaletteOptions['primary'];
+    surfaceDim: PaletteOptions['primary'];
 
     green?: PaletteOptions['primary'];
     orange?: PaletteOptions['primary'];
