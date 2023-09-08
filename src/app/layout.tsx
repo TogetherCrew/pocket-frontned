@@ -6,6 +6,7 @@ import type { Metadata } from 'next';
 import Script from 'next/script';
 
 import { NavigationDrawer } from '@/components/NavigationDrawer';
+import { PagesTop } from '@/components/PagesTop';
 import { MuiThemeRegistry } from '@/components/theme-registry/MuiThemeRegistry';
 import { PlusJakarta } from '@/font';
 
@@ -25,7 +26,10 @@ export default function RootLayout({
       <body className={PlusJakarta.className}>
         <MuiThemeRegistry>
           <NavigationDrawer width={DRAWER_WIDTH} />
-          <Box sx={{ ml: `${DRAWER_WIDTH}px` }}>{children}</Box>
+          <Box sx={{ ml: { sm: `${DRAWER_WIDTH}px` } }}>
+            <PagesTop />
+            {children}
+          </Box>
         </MuiThemeRegistry>
 
         <Script src="/public/scripts/grafana.js" />
