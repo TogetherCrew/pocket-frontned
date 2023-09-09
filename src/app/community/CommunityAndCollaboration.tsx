@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { PocketNetworkDnaNps } from '@/app/community/PocketNetworkDnaNps';
+import { LineChartMetric } from '@/components/MetricCharts';
 
 const EcosystemProjectsDeliveringImpact = () => {
   // TODO: change span with an disabled select input
@@ -32,8 +32,8 @@ const CommunityAndCollaboration = () => {
       <div className="text-xl font-bold">Community & Collaboration</div>
       <EcosystemProjectsDeliveringImpact />
       <div className="grid h-80 w-full grid-cols-2 gap-5">
-        <PocketNetworkDnaNps />
-        <PocketNetworkDnaNps />
+        <LineChartMetric title="Pocket Network DNA NPS" />
+        <LineChartMetric title="Community NPS" />
       </div>
     </div>
   );

@@ -1,11 +1,11 @@
 'use client';
-import React from 'react';
+import React, { FC } from 'react';
 
+import { useTheme } from '@mui/material';
 import { ApexOptions } from 'apexcharts';
 import dynamic from 'next/dynamic';
 
 const ApexChart = dynamic(() => import('react-apexcharts'), { ssr: false });
-
 const generateData = (length: number, max: number = 100) => {
   const data = [];
   const date = new Date();
@@ -19,8 +19,8 @@ const generateData = (length: number, max: number = 100) => {
     }
 
     data.push({
-      x: date.toISOString(),
-      y: y,
+      date: date.toISOString(),
+      value: y,
     });
     prevY = y;
     date.setHours(date.getHours() + 1);
@@ -28,11 +28,28 @@ const generateData = (length: number, max: number = 100) => {
 
   return data;
 };
-const PocketNetworkDnaNps = () => {
+
+interface LineChartMetricProps {
+  title: string;
+  data?: Array<{
+    date: string;
+    value: number;
+  }>;
+  color?: 'primary' | 'secondary';
+}
+
+const LineChartMetric: FC<LineChartMetricProps> = ({
+  title,
+  data = generateData(50),
+  color = 'primary',
+}) => {
+  const theme = useTheme();
   const series: ApexAxisChartSeries = [
     {
       name: 'pocket network',
-      data: generateData(50),
+      data: data.map(({ date, value }) => {
+        return { x: date, y: value };
+      }),
     },
   ];
   const options: ApexOptions = {
@@ -48,7 +65,7 @@ const PocketNetworkDnaNps = () => {
     dataLabels: {
       enabled: false,
     },
-    colors: ['#005EB2'],
+    colors: [theme.palette[color].main],
     tooltip: {
       x: {
         format: 'dd/MM/yy HH:mm',
@@ -64,10 +81,8 @@ const PocketNetworkDnaNps = () => {
   };
 
   return (
-    <div className="flex w-full flex-col gap-6 rounded-2xl bg-surfaceContainerLow p-5">
-      <div className="text-lg font-bold leading-snug">
-        Pocket Network DNA NPS
-      </div>
+    <div className="flex h-full w-full flex-col gap-6 rounded-2xl bg-surfaceContainerLow p-5">
+      <div className="text-lg font-bold leading-snug">{title}</div>
       <div className="h-full w-full">
         <ApexChart
           series={series}
@@ -80,4 +95,4 @@ const PocketNetworkDnaNps = () => {
   );
 };
 
-export { PocketNetworkDnaNps };
+export { LineChartMetric };
