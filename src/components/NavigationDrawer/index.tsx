@@ -32,7 +32,7 @@ interface NavigationDrawerProps {
 }
 
 export const NavigationDrawer: FC<NavigationDrawerProps> = ({ width }) => {
-  const [mobileOpen, setMobileOpen] = useState(true);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };

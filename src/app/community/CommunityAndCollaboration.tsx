@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { PocketNetworkDnaNps } from '@/app/community/PocketNetworkDnaNps';
+
 const EcosystemProjectsDeliveringImpact = () => {
   // TODO: change span with an disabled select input
   return (
@@ -29,6 +31,10 @@ const CommunityAndCollaboration = () => {
     <div className="flex flex-col gap-5">
       <div className="text-xl font-bold">Community & Collaboration</div>
       <EcosystemProjectsDeliveringImpact />
+      <div className="grid h-80 w-full grid-cols-2 gap-5">
+        <PocketNetworkDnaNps />
+        <PocketNetworkDnaNps />
+      </div>
     </div>
   );
 };
