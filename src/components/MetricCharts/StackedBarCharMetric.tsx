@@ -7,32 +7,54 @@ import dynamic from 'next/dynamic';
 
 const ApexChart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
-interface StackedBarCharMetric {
-  title: string;
-  data?: Array<{
-    date: string;
-    values: [
-      {
-        name: string;
-        value: number;
-      },
-    ];
-  }>;
-}
+export type SingleColumnData = {
+  date: string;
+  value: number;
+};
 
-// TODO: extract series (e.g. name, data) and options (e.g. categories) needed values from data
-const StackedBarCharMetric: FC<StackedBarCharMetric> = ({ title }) => {
+export type MultipleColumnData = {
+  date: string;
+  values: Array<{
+    name: string;
+    value: number;
+  }>;
+};
+
+type StackedBarCharMetric = {
+  title: string;
+} & (
+  | { multiple: true; data: Array<MultipleColumnData> }
+  | { multiple?: false; data: Array<SingleColumnData> }
+);
+
+const StackedBarCharMetric: FC<StackedBarCharMetric> = ({
+  title,
+  multiple,
+  data,
+}) => {
   const theme = useTheme();
-  const series: ApexAxisChartSeries = [
-    {
-      name: 'Velocity of experiments',
-      data: [44, 55, 41, 67, 22, 43, 30],
+
+  const dates = data?.map(({ date }) => {
+    return date;
+  });
+
+  const chartSeriesData = multiple
+    ? data.reduce<{ [key: string]: number[] }>((acc, { values }) => {
+        return values.reduce((innerAcc, { name, value }) => {
+          return { ...innerAcc, [name]: [...(innerAcc[name] || []), value] };
+        }, acc);
+      }, {})
+    : { title: data.map(({ value }) => value) };
+
+  const series: ApexAxisChartSeries = Object.keys(chartSeriesData).map(
+    (key) => {
+      return {
+        name: key,
+        data: chartSeriesData[key],
+      };
     },
-    {
-      name: 'no. debated proposals',
-      data: [13, 23, 20, 8, 13, 27, 21],
-    },
-  ];
+  );
+
   const options: ApexOptions = {
     chart: {
       type: 'bar',
@@ -48,7 +70,11 @@ const StackedBarCharMetric: FC<StackedBarCharMetric> = ({ title }) => {
     dataLabels: {
       enabled: false,
     },
-    colors: [theme.palette['orange'].main, theme.palette['green'].main],
+    colors: [
+      theme.palette['orange'].main,
+      theme.palette['green'].main,
+      theme.palette['pink'].main,
+    ],
     tooltip: {
       x: {
         format: 'dd/MM/yy HH:mm',
@@ -65,15 +91,7 @@ const StackedBarCharMetric: FC<StackedBarCharMetric> = ({ title }) => {
     },
     xaxis: {
       type: 'datetime',
-      categories: [
-        '2018-09-19T00:00:00.000Z',
-        '2018-09-20T00:00:00.000Z',
-        '2018-09-21T00:00:00.000Z',
-        '2018-09-22T00:00:00.000Z',
-        '2018-09-23T00:00:00.000Z',
-        '2018-09-24T00:00:00.000Z',
-        '2018-09-25T00:00:00.000Z',
-      ],
+      categories: dates,
     },
     fill: {
       opacity: 1,
@@ -90,4 +108,4 @@ const StackedBarCharMetric: FC<StackedBarCharMetric> = ({ title }) => {
   );
 };
 
-export default StackedBarCharMetric;
+export { StackedBarCharMetric };

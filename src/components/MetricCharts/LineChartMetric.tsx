@@ -6,8 +6,12 @@ import { ApexOptions } from 'apexcharts';
 import dynamic from 'next/dynamic';
 
 const ApexChart = dynamic(() => import('react-apexcharts'), { ssr: false });
-const generateData = (length: number, max: number = 100) => {
-  const data = [];
+
+export const generateData = (
+  length: number,
+  max: number = 100,
+): LineChartMetricData => {
+  const data: LineChartMetricData = [];
   const date = new Date();
   let prevY = Math.floor(Math.random() * max);
 
@@ -29,12 +33,13 @@ const generateData = (length: number, max: number = 100) => {
   return data;
 };
 
+type LineChartMetricData = Array<{
+  date: string;
+  value: number;
+}>;
 interface LineChartMetricProps {
   title: string;
-  data?: Array<{
-    date: string;
-    value: number;
-  }>;
+  data?: LineChartMetricData;
   color?: 'primary' | 'secondary';
 }
 
