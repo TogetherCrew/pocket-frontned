@@ -2,7 +2,7 @@ import DonutLargeRoundedIcon from '@mui/icons-material/DonutLargeRounded';
 import GroupsIcon from '@mui/icons-material/Groups';
 import ShieldIcon from '@mui/icons-material/Shield';
 import StackedBarChartRoundedIcon from '@mui/icons-material/StackedBarChartRounded';
-import { ButtonBase, SvgIconProps, Toolbar } from '@mui/material';
+import { ButtonBase, SvgIconProps } from '@mui/material';
 import { usePathname } from 'next/navigation';
 
 import { paths } from '@/utils/paths';
@@ -35,7 +35,6 @@ export const DrawerContent = () => {
 
   return (
     <div className="p-3">
-      <Toolbar />
       <ul className="flex w-full flex-col items-start justify-stretch px-0">
         {items.map(({ title, Icon, href }) => (
           <ButtonBase
@@ -45,6 +44,8 @@ export const DrawerContent = () => {
               pathname === href ? 'bg-primaryContainer' : ''
             }`}
           >
+            {/* Can't use Link component from Next.js because of it's conflict with Grafana Faro SDK */}
+            {/* Check https://github.com/Microflow-xyz/pocket-frontned/issues/14 */}
             <a
               className="flex w-full items-center justify-stretch gap-3 p-3"
               href={href}

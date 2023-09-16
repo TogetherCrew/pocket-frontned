@@ -325,19 +325,27 @@ module.exports = {
           { fontWeight: 500, lineHeight: '1rem', letterSpacing: '0.0156rem' },
         ],
         'label-small': [
-          '0.6875rem',
-          { fontWeight: 500, lineHeight: '1rem', letterSpacing: '0.025rem' },
+          '0.875rem',
+          { fontWeight: 500, lineHeight: '1.25rem', letterSpacing: '0.025rem' },
         ],
         'title-large': [
-          '0.875rem',
-          { fontWeight: 500, lineHeight: '1.75rem', letterSpacing: '0' },
+          '1.375rem',
+          { fontWeight: 700, lineHeight: '1.5rem', letterSpacing: '0' },
+        ],
+        'title-semi-large': [
+          '1.125rem',
+          {
+            fontWeight: 700,
+            lineHeight: '1.375rem',
+            letterSpacing: '0',
+          },
         ],
         'title-medium': [
-          '0.75rem',
-          { fontWeight: 500, lineHeight: '1.5rem', letterSpacing: '0.0094rem' },
+          '1rem',
+          { fontWeight: 600, lineHeight: '1.5rem', letterSpacing: '0.0094rem' },
         ],
         'title-small': [
-          '0.6875rem',
+          '0.875rem',
           {
             fontWeight: 500,
             lineHeight: '1.25rem',
