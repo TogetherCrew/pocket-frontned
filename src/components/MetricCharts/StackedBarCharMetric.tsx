@@ -1,5 +1,4 @@
 'use client';
-import React, { FC } from 'react';
 
 import { useTheme } from '@mui/material';
 import { ApexOptions } from 'apexcharts';
@@ -27,11 +26,11 @@ type StackedBarCharMetric = {
   | { multiple?: false; data: Array<SingleColumnData> }
 );
 
-const StackedBarCharMetric: FC<StackedBarCharMetric> = ({
+const StackedBarCharMetric = ({
   title,
   multiple,
   data,
-}) => {
+}: StackedBarCharMetric) => {
   const theme = useTheme();
 
   const dates = data?.map(({ date }) => {

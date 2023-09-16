@@ -1,33 +1,32 @@
-import React from 'react';
-
 import DonutLargeRoundedIcon from '@mui/icons-material/DonutLargeRounded';
 import GroupsIcon from '@mui/icons-material/Groups';
 import ShieldIcon from '@mui/icons-material/Shield';
 import StackedBarChartRoundedIcon from '@mui/icons-material/StackedBarChartRounded';
 import { ButtonBase, SvgIconProps, Toolbar } from '@mui/material';
-import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+
+import { paths } from '@/utils/paths';
 
 const items = [
   {
-    title: 'Community',
+    title: paths.community.title,
     Icon: (params: SvgIconProps) => <GroupsIcon {...params} />,
-    href: '/community',
+    href: paths.community.href,
   },
   {
-    title: 'Governance',
+    title: paths.governance.title,
     Icon: (params: SvgIconProps) => <ShieldIcon {...params} />,
-    href: '/governance',
+    href: paths.governance.href,
   },
   {
-    title: 'Protocol',
+    title: paths.protocol.title,
     Icon: (params: SvgIconProps) => <StackedBarChartRoundedIcon {...params} />,
-    href: '/protocol',
+    href: paths.protocol.href,
   },
   {
-    title: 'POKT',
+    title: paths.pokt.title,
     Icon: (params: SvgIconProps) => <DonutLargeRoundedIcon {...params} />,
-    href: '/pokt',
+    href: paths.pokt.href,
   },
 ];
 
@@ -46,7 +45,7 @@ export const DrawerContent = () => {
               pathname === href ? 'bg-primaryContainer' : ''
             }`}
           >
-            <Link
+            <a
               className="flex w-full items-center justify-stretch gap-3 p-3"
               href={href}
             >
@@ -66,7 +65,7 @@ export const DrawerContent = () => {
               >
                 {title}
               </span>
-            </Link>
+            </a>
           </ButtonBase>
         ))}
       </ul>

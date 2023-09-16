@@ -1,5 +1,5 @@
 'use client';
-import React, { FC, useState } from 'react';
+import { useState } from 'react';
 
 import { Drawer, DrawerProps, styled, SxProps, Theme } from '@mui/material';
 
@@ -31,7 +31,7 @@ interface NavigationDrawerProps {
   width: number;
 }
 
-export const NavigationDrawer: FC<NavigationDrawerProps> = ({ width }) => {
+export const NavigationDrawer = ({ width }: NavigationDrawerProps) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);

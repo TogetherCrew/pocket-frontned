@@ -1,5 +1,5 @@
 'use client';
-import React, { FC, useState } from 'react';
+import { useState } from 'react';
 
 import CalendarMonthTwoToneIcon from '@mui/icons-material/CalendarMonthTwoTone';
 import { MenuItem, TextField, InputAdornment } from '@mui/material';
@@ -21,10 +21,7 @@ interface PeriodSelectorProps {
   onPeriodChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const PeriodSelector: FC<PeriodSelectorProps> = ({
-  period,
-  onPeriodChange,
-}) => {
+const PeriodSelector = ({ period, onPeriodChange }: PeriodSelectorProps) => {
   return (
     <TextField
       select

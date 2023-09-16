@@ -9,7 +9,7 @@
       url: 'https://faro-collector-prod-us-central-0.grafana.net/collect/235aa5770c69d04cf58b6bb401b0fc12',
       app: {
         name: 'pocket-network-test',
-        version: '1.0.0',
+        version: '0.1.0',
         environment: 'production',
       },
     });

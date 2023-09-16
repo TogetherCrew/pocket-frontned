@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { LineChartMetric } from '@/components/MetricCharts';
 
 const EcosystemProjectsDeliveringImpact = () => {

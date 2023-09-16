@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Adaptability } from '@/app/community/Adaptability';
 import { CommunityAndCollaboration } from '@/app/community/CommunityAndCollaboration';
 

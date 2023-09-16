@@ -1,5 +1,4 @@
 'use client';
-import React, { FC } from 'react';
 
 import { useTheme } from '@mui/material';
 import { ApexOptions } from 'apexcharts';
@@ -43,11 +42,11 @@ interface LineChartMetricProps {
   color?: 'primary' | 'secondary';
 }
 
-const LineChartMetric: FC<LineChartMetricProps> = ({
+const LineChartMetric = ({
   title,
   data = generateData(50),
   color = 'primary',
-}) => {
+}: LineChartMetricProps) => {
   const theme = useTheme();
   const series: ApexAxisChartSeries = [
     {
