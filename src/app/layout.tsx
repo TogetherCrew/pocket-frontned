@@ -4,8 +4,8 @@ import { Box } from '@mui/material';
 import type { Metadata } from 'next';
 import Script from 'next/script';
 
-import { NavigationDrawer } from '@/components/NavigationDrawer';
-import { PagesTop } from '@/components/PagesTop';
+import { NavigationDrawer } from '@/components/navigation-drawer';
+import { PagesHeader } from '@/components/pages-header';
 import { MuiThemeRegistry } from '@/components/theme-registry/MuiThemeRegistry';
 import { PlusJakarta } from '@/font';
 import { DRAWER_WIDTH } from '@/utils/constants';
@@ -26,7 +26,7 @@ export default function RootLayout({
         <MuiThemeRegistry>
           <NavigationDrawer width={DRAWER_WIDTH} />
           <Box sx={{ ml: { sm: `${DRAWER_WIDTH}px` } }}>
-            <PagesTop />
+            <PagesHeader />
             {children}
           </Box>
         </MuiThemeRegistry>

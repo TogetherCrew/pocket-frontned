@@ -1,11 +1,11 @@
 import {
   LineChartMetric,
   generateData,
-} from '@/components/MetricCharts/LineChartMetric';
+} from '@/components/metrics-charts/LineChartMetric';
 import {
   StackedBarCharMetric,
   MultipleColumnData,
-} from '@/components/MetricCharts/StackedBarCharMetric';
+} from '@/components/metrics-charts/StackedBarCharMetric';
 
 export const generateMultipleData = (
   length: number,

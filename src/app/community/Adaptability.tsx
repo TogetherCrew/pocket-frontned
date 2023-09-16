@@ -1,7 +1,7 @@
 import {
   StackedBarCharMetric,
   generateMultipleData,
-} from '@/components/MetricCharts';
+} from '@/components/metrics-charts';
 
 const Adaptability = () => {
   return (

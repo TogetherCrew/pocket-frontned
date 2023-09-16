@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import { Drawer, DrawerProps, styled, SxProps, Theme } from '@mui/material';
 
-import { DrawerContent } from '@/components/NavigationDrawer/DrawerContent';
+import { DrawerContent } from '@/components/navigation-drawer/DrawerContent';
 
 interface StyledDrawerProps extends DrawerProps {
   width?: number | string;

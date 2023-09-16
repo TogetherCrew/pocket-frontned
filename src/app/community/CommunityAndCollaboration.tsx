@@ -1,4 +1,4 @@
-import { LineChartMetric } from '@/components/MetricCharts';
+import { LineChartMetric } from '@/components/metrics-charts';
 
 const EcosystemProjectsDeliveringImpact = () => {
   // TODO: change span with an disabled select input
@@ -10,7 +10,7 @@ const EcosystemProjectsDeliveringImpact = () => {
             Ecosystem projects delivering impact
           </span>
           <div className="bg-zinc-700 flex w-[125px] items-center justify-center rounded-lg bg-opacity-10">
-            <span className="text-zinc-900 text-center text-sm leading-tight opacity-40">
+            <span className="text-zinc-900 text-center text-title-small opacity-40">
               Last 2 months
             </span>
           </div>

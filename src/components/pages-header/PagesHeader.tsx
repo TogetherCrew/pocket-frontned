@@ -52,7 +52,7 @@ const PeriodSelector = ({ period, onPeriodChange }: PeriodSelectorProps) => {
   );
 };
 
-const PagesTop = () => {
+export const PagesHeader = () => {
   const pathname = usePathname();
   const [period, setPeriod] = useState(PERIODS[0].value);
 
@@ -70,5 +70,3 @@ const PagesTop = () => {
     </header>
   );
 };
-
-export { PagesTop };
