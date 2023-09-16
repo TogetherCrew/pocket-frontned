@@ -2,7 +2,12 @@
 import { useState } from 'react';
 
 import CalendarMonthTwoToneIcon from '@mui/icons-material/CalendarMonthTwoTone';
-import { MenuItem, TextField, InputAdornment } from '@mui/material';
+import {
+  MenuItem,
+  InputAdornment,
+  Select,
+  SelectChangeEvent,
+} from '@mui/material';
 import { usePathname } from 'next/navigation';
 
 type Period = {
@@ -10,7 +15,10 @@ type Period = {
   value: string;
 };
 
-const PERIODS: Array<Period> = [
+/**
+ * Readonly periods with important order. Don't change the indexes of array
+ */
+const PERIODS: Readonly<Array<Period>> = [
   { label: 'Last week', value: '1' },
   { label: 'Last 2 week', value: '2' },
   { label: 'Last month', value: '3' },
@@ -18,28 +26,24 @@ const PERIODS: Array<Period> = [
 
 interface PeriodSelectorProps {
   period: Period['value'];
-  onPeriodChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onPeriodChange: (event: SelectChangeEvent) => void;
 }
 
 const PeriodSelector = ({ period, onPeriodChange }: PeriodSelectorProps) => {
   return (
-    <TextField
-      select
+    <Select
+      className="min-w-[9.5rem] rounded-lg"
       value={period}
       onChange={onPeriodChange}
-      InputProps={{
-        startAdornment: (
+      renderValue={(value) => (
+        <div className="flex items-center justify-start text-title-small">
           <InputAdornment position="start">
             <CalendarMonthTwoToneIcon fontSize="small" />
           </InputAdornment>
-        ),
-      }}
+          {PERIODS[+value - 1].label}
+        </div>
+      )}
       size="small"
-      SelectProps={{
-        classes: { select: 'text-title-small py-2' },
-        MenuProps: { classes: { list: 'p-0' } },
-      }}
-      sx={{ width: '150px' }}
     >
       {PERIODS.map(({ label, value }) => {
         return (
@@ -48,7 +52,7 @@ const PeriodSelector = ({ period, onPeriodChange }: PeriodSelectorProps) => {
           </MenuItem>
         );
       })}
-    </TextField>
+    </Select>
   );
 };
 
@@ -56,13 +60,13 @@ export const PagesHeader = () => {
   const pathname = usePathname();
   const [period, setPeriod] = useState(PERIODS[0].value);
 
-  const onPeriodChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const onPeriodChange = (event: SelectChangeEvent) => {
     setPeriod(event.target.value);
   };
 
   // also, we can use an object for mapping every url address to a title; instead of using split function
   return (
-    <header className="flex items-center justify-between bg-surfaceContainerLow p-6">
+    <header className="flex items-center justify-between bg-surfaceContainerLow px-8 py-10">
       <span className="text-title-large capitalize">
         {pathname?.split('/').at(1) || ''}
       </span>

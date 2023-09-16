@@ -34,7 +34,7 @@ export const DrawerContent = () => {
   const pathname = usePathname();
 
   return (
-    <div className="p-3">
+    <div className="p-3 pt-1">
       <ul className="flex w-full flex-col items-start justify-stretch px-0">
         {items.map(({ title, Icon, href }) => (
           <ButtonBase

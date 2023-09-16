@@ -1,7 +1,7 @@
+import { DisabledTimePeriod } from '@/components/disabled-time-period';
 import { LineChartMetric } from '@/components/metrics-charts';
 
 const EcosystemProjectsDeliveringImpact = () => {
-  // TODO: change span with an disabled select input
   return (
     <div className="flex w-full flex-col gap-5 rounded-2xl bg-surfaceContainerLow p-5">
       <div className="flex flex-col gap-2">
@@ -10,9 +10,10 @@ const EcosystemProjectsDeliveringImpact = () => {
             Ecosystem projects delivering impact
           </span>
           <div className="bg-zinc-700 flex w-[125px] items-center justify-center rounded-lg bg-opacity-10">
-            <span className="text-zinc-900 text-center text-title-small opacity-40">
-              Last 2 months
-            </span>
+            {/*<span className="bg-onSurface bg-opacity-[0.12] text-center text-title-small text-onSurface text-opacity-40">*/}
+            {/*  Last 2 months*/}
+            {/*</span>*/}
+            <DisabledTimePeriod>Last 2 months</DisabledTimePeriod>
           </div>
         </div>
         <span className="text-body-medium text-onSurfaceVariant">

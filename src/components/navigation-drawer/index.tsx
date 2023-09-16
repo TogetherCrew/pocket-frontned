@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Drawer, DrawerProps, styled, SxProps, Theme } from '@mui/material';
 
 import { DrawerContent } from '@/components/navigation-drawer/DrawerContent';
+import { PoktLogo } from '@/components/navigation-drawer/PoktLogo';
 
 interface StyledDrawerProps extends DrawerProps {
   width?: number | string;
@@ -41,6 +42,7 @@ export const NavigationDrawer = ({ width }: NavigationDrawerProps) => {
     <nav>
       {/* Desktop Version */}
       <StyledDrawer variant="permanent" width={width} open>
+        <PoktLogo />
         <DrawerContent />
       </StyledDrawer>
       {/* Small/Medium Screen Version */}
