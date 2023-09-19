@@ -10,6 +10,8 @@ import {
 } from '@mui/material';
 import { usePathname } from 'next/navigation';
 
+import { FixHydration } from '@/components/fix-hydration/FixHydration';
+
 type Period = {
   label: string;
   value: string;
@@ -31,28 +33,30 @@ interface PeriodSelectorProps {
 
 const PeriodSelector = ({ period, onPeriodChange }: PeriodSelectorProps) => {
   return (
-    <Select
-      className="min-w-[9.5rem] rounded-lg"
-      value={period}
-      onChange={onPeriodChange}
-      renderValue={(value) => (
-        <div className="flex items-center justify-start text-title-small">
-          <InputAdornment position="start">
-            <CalendarMonthTwoToneIcon fontSize="small" />
-          </InputAdornment>
-          {PERIODS[+value - 1].label}
-        </div>
-      )}
-      size="small"
-    >
-      {PERIODS.map(({ label, value }) => {
-        return (
-          <MenuItem key={label} value={value} className="text-title-small">
-            {label}
-          </MenuItem>
-        );
-      })}
-    </Select>
+    <FixHydration>
+      <Select
+        className="min-w-[9.5rem] rounded-lg"
+        value={period}
+        onChange={onPeriodChange}
+        renderValue={(value) => (
+          <div className="flex items-center justify-start text-title-small">
+            <InputAdornment position="start">
+              <CalendarMonthTwoToneIcon fontSize="small" />
+            </InputAdornment>
+            {PERIODS[+value - 1].label}
+          </div>
+        )}
+        size="small"
+      >
+        {PERIODS.map(({ label, value }) => {
+          return (
+            <MenuItem key={label} value={value} className="text-title-small">
+              {label}
+            </MenuItem>
+          );
+        })}
+      </Select>
+    </FixHydration>
   );
 };
 
