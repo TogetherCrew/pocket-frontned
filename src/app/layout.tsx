@@ -1,9 +1,11 @@
 import './globals.css';
 
+import { Suspense } from 'react';
+
 import { Box } from '@mui/material';
 import type { Metadata } from 'next';
-import Script from 'next/script';
 
+import { GrafanaInstrumentation } from '@/components/instrumentations/Grafana';
 import { NavigationDrawer } from '@/components/navigation-drawer';
 import { PagesHeader } from '@/components/pages-header';
 import { MuiThemeRegistry } from '@/components/theme-registry/MuiThemeRegistry';
@@ -31,7 +33,9 @@ export default function RootLayout({
           </Box>
         </MuiThemeRegistry>
 
-        <Script src="/scripts/grafana.js" strategy="lazyOnload" />
+        <Suspense>
+          <GrafanaInstrumentation />
+        </Suspense>
       </body>
     </html>
   );

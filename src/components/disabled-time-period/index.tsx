@@ -1,3 +1,3 @@
-import { DisabledTimePeriod } from '@/components/disabled-time-period/disabled-time-period';
+import { DisabledTimePeriod } from '@/components/disabled-time-period/DisabledTimePeriod';
 
 export { DisabledTimePeriod };
