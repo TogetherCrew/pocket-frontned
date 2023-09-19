@@ -30,7 +30,7 @@ const CommunityAndCollaboration = () => {
     <div className="flex flex-col gap-5">
       <div className="text-title-large">Community & Collaboration</div>
       <EcosystemProjectsDeliveringImpact />
-      <div className="grid h-80 w-full grid-cols-2 gap-5">
+      <div className="grid w-full grid-cols-1 gap-5 lg:grid-cols-2">
         <LineChartMetric title="Pocket Network DNA NPS" color="secondary" />
         <LineChartMetric title="Community NPS" color="secondary" />
       </div>

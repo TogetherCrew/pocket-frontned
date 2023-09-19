@@ -98,7 +98,7 @@ const StackedBarCharMetric = ({
   };
 
   return (
-    <div className="flex h-full w-full flex-col gap-6 rounded-2xl bg-surfaceContainerLow p-5">
+    <div className="flex h-72 w-full flex-col gap-6 rounded-2xl bg-surfaceContainerLow p-5">
       <div className="text-title-semi-large">{title}</div>
       <div className="h-full w-full">
         <ApexChart series={series} options={options} height="100%" type="bar" />

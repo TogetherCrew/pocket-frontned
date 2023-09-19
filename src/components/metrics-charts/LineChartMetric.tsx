@@ -4,6 +4,8 @@ import { useTheme } from '@mui/material';
 import { ApexOptions } from 'apexcharts';
 import dynamic from 'next/dynamic';
 
+import { DisabledTimePeriod } from '@/components/disabled-time-period';
+
 const ApexChart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 export const generateData = (
@@ -40,12 +42,16 @@ interface LineChartMetricProps {
   title: string;
   data?: LineChartMetricData;
   color?: 'primary' | 'secondary';
+  showDisabledTimePeriod?: boolean;
+  disabledTimePeriodText?: string;
 }
 
 const LineChartMetric = ({
   title,
   data = generateData(50),
   color = 'primary',
+  showDisabledTimePeriod = false,
+  disabledTimePeriodText,
 }: LineChartMetricProps) => {
   const theme = useTheme();
   const series: ApexAxisChartSeries = [
@@ -85,8 +91,13 @@ const LineChartMetric = ({
   };
 
   return (
-    <div className="flex h-full w-full flex-col gap-6 rounded-2xl bg-surfaceContainerLow p-5">
-      <div className="text-title-semi-large">{title}</div>
+    <div className="flex h-72 w-full flex-col gap-6 rounded-2xl bg-surfaceContainerLow p-5">
+      <div className="flex flex-row justify-between">
+        <div className="text-title-semi-large">{title}</div>
+        {showDisabledTimePeriod ? (
+          <DisabledTimePeriod>{disabledTimePeriodText}</DisabledTimePeriod>
+        ) : null}
+      </div>
       <div className="h-full w-full">
         <ApexChart
           series={series}
