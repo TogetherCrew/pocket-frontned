@@ -21,6 +21,7 @@ export type MultipleColumnData = {
 
 type StackedBarCharMetric = {
   title: string;
+  description?: string;
 } & (
   | { multiple: true; data: Array<MultipleColumnData> }
   | { multiple?: false; data: Array<SingleColumnData> }
@@ -30,6 +31,7 @@ const StackedBarCharMetric = ({
   title,
   multiple,
   data,
+  description,
 }: StackedBarCharMetric) => {
   const theme = useTheme();
 
@@ -99,7 +101,14 @@ const StackedBarCharMetric = ({
 
   return (
     <div className="flex h-72 w-full flex-col gap-6 rounded-2xl bg-surfaceContainerLow p-5">
-      <div className="text-title-semi-large">{title}</div>
+      <div className="text-title-semi-large">
+        <p className="m-0">{title}</p>
+        {description ? (
+          <p className="m-0 mt-1 text-body-medium text-onSurfaceVariant">
+            {description}
+          </p>
+        ) : null}
+      </div>
       <div className="h-full w-full">
         <ApexChart series={series} options={options} height="100%" type="bar" />
       </div>

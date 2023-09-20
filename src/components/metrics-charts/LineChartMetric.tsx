@@ -44,6 +44,7 @@ interface LineChartMetricProps {
   color?: 'primary' | 'secondary';
   showDisabledTimePeriod?: boolean;
   disabledTimePeriodText?: string;
+  description?: string;
 }
 
 const LineChartMetric = ({
@@ -52,6 +53,7 @@ const LineChartMetric = ({
   color = 'primary',
   showDisabledTimePeriod = false,
   disabledTimePeriodText,
+  description = '',
 }: LineChartMetricProps) => {
   const theme = useTheme();
   const series: ApexAxisChartSeries = [
@@ -93,7 +95,14 @@ const LineChartMetric = ({
   return (
     <div className="flex h-72 w-full flex-col gap-6 rounded-2xl bg-surfaceContainerLow p-5">
       <div className="flex flex-row justify-between">
-        <div className="text-title-semi-large">{title}</div>
+        <div className="text-title-semi-large">
+          <p className="m-0">{title}</p>
+          {description ? (
+            <p className="m-0 mt-1 text-body-medium text-onSurfaceVariant">
+              {description}
+            </p>
+          ) : null}
+        </div>
         {showDisabledTimePeriod ? (
           <DisabledTimePeriod>{disabledTimePeriodText}</DisabledTimePeriod>
         ) : null}
