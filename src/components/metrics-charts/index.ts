@@ -1,3 +1,4 @@
+import { LinearProgressDateMetric } from '@/components/metrics-charts/LinearProgressDateMetric';
 import {
   LineChartMetric,
   generateData,
@@ -5,9 +6,27 @@ import {
 import {
   StackedBarCharMetric,
   MultipleColumnData,
+  SingleColumnData,
 } from '@/components/metrics-charts/StackedBarCharMetric';
 
-export const generateMultipleData = (
+const generateSingleData = (length: number): Array<SingleColumnData> => {
+  const data: Array<SingleColumnData> = [];
+
+  const date = new Date();
+
+  for (let i = 0; i < length; i++) {
+    // Add the data point to the data array
+    data.push({
+      date: date.toISOString(),
+      value: Math.floor(Math.random() * 100),
+    });
+    date.setHours(date.getHours() + 12);
+  }
+
+  return data;
+};
+
+const generateMultipleData = (
   length: number,
   count: number,
 ): Array<MultipleColumnData> => {
@@ -34,4 +53,11 @@ export const generateMultipleData = (
   return data;
 };
 
-export { LineChartMetric, StackedBarCharMetric, generateData };
+export {
+  LineChartMetric,
+  StackedBarCharMetric,
+  generateData,
+  generateMultipleData,
+  generateSingleData,
+  LinearProgressDateMetric,
+};
