@@ -11,7 +11,7 @@ export const FixHydration = ({ children }: Props) => {
 
   useEffect(() => {
     setIsClient(true);
-  });
+  }, []);
 
   return isClient ? children : null;
 };

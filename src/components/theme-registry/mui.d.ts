@@ -103,4 +103,9 @@ declare module '@mui/material/styles' {
     pink?: PaletteOptions['primary'];
     yellow?: PaletteOptions['primary'];
   }
+
+  interface BreakpointOverrides {
+    xs: false; // removes the `xs` breakpoint
+    '2xl': true;
+  }
 }

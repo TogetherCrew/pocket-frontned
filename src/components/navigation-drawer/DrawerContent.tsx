@@ -5,6 +5,7 @@ import StackedBarChartRoundedIcon from '@mui/icons-material/StackedBarChartRound
 import { ButtonBase, SvgIconProps } from '@mui/material';
 import { usePathname } from 'next/navigation';
 
+import { PoktLogo } from '@/components/navigation-drawer/PoktLogo';
 import { paths } from '@/utils/paths';
 
 const items = [
@@ -34,42 +35,45 @@ export const DrawerContent = () => {
   const pathname = usePathname();
 
   return (
-    <div className="p-3 pt-1">
-      <ul className="flex w-full flex-col items-start justify-stretch px-0">
-        {items.map(({ title, Icon, href }) => (
-          <ButtonBase
-            component="li"
-            key={title}
-            className={`w-full rounded-full transition-all duration-500 hover:cursor-pointer hover:bg-primaryContainer ${
-              pathname === href ? 'bg-primaryContainer' : ''
-            }`}
-          >
-            {/* Can't use Link component from Next.js because of it's conflict with Grafana Faro SDK */}
-            {/* Check https://github.com/Microflow-xyz/pocket-frontned/issues/14 */}
-            <a
-              className="flex w-full items-center justify-stretch gap-3 p-3"
-              href={href}
+    <>
+      <PoktLogo />
+      <div className="p-3 pt-1">
+        <ul className="flex w-full flex-col items-start justify-stretch px-0">
+          {items.map(({ title, Icon, href }) => (
+            <ButtonBase
+              component="li"
+              key={title}
+              className={`w-full rounded-full transition-all duration-500 hover:cursor-pointer hover:bg-primaryContainer ${
+                pathname === href ? 'bg-primaryContainer' : ''
+              }`}
             >
-              <Icon
-                className={
-                  pathname === href
-                    ? 'text-onPrimaryContainer'
-                    : 'text-onSurfaceVariant'
-                }
-              />
-              <span
-                className={`text-title-small ${
-                  pathname === href
-                    ? 'text-onPrimaryContainer'
-                    : 'text-onSurfaceVariant'
-                }`}
+              {/* Can't use Link component from Next.js because of it's conflict with Grafana Faro SDK */}
+              {/* Check https://github.com/Microflow-xyz/pocket-frontned/issues/14 */}
+              <a
+                className="flex w-full items-center justify-stretch gap-3 p-3"
+                href={href}
               >
-                {title}
-              </span>
-            </a>
-          </ButtonBase>
-        ))}
-      </ul>
-    </div>
+                <Icon
+                  className={
+                    pathname === href
+                      ? 'text-onPrimaryContainer'
+                      : 'text-onSurfaceVariant'
+                  }
+                />
+                <span
+                  className={`text-title-small ${
+                    pathname === href
+                      ? 'text-onPrimaryContainer'
+                      : 'text-onSurfaceVariant'
+                  }`}
+                >
+                  {title}
+                </span>
+              </a>
+            </ButtonBase>
+          ))}
+        </ul>
+      </div>
+    </>
   );
 };

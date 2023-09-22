@@ -5,7 +5,7 @@ import { Transparency } from '@/app/community/Transparency';
 
 const CommunityPage = () => {
   return (
-    <main className="flex flex-col gap-8 p-6">
+    <main className="flex flex-grow flex-col gap-8 p-6">
       <CommunityAndCollaboration />
       <Awareness />
       <Transparency />

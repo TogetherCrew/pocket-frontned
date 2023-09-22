@@ -8,7 +8,7 @@ import type { Metadata } from 'next';
 import { GrafanaInstrumentation } from '@/components/instrumentations/Grafana';
 import { NavigationDrawer } from '@/components/navigation-drawer';
 import { PagesHeader } from '@/components/pages-header';
-import { MuiThemeRegistry } from '@/components/theme-registry/MuiThemeRegistry';
+import { AppProviders } from '@/components/providers';
 import { PlusJakarta } from '@/font';
 import { DRAWER_WIDTH } from '@/utils/constants';
 
@@ -25,13 +25,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={PlusJakarta.className}>
-        <MuiThemeRegistry>
+        <AppProviders>
           <NavigationDrawer width={DRAWER_WIDTH} />
-          <Box sx={{ ml: { sm: `${DRAWER_WIDTH}px` } }}>
+          <Box sx={{ ml: { lg: `${DRAWER_WIDTH}rem` } }}>
             <PagesHeader />
             {children}
           </Box>
-        </MuiThemeRegistry>
+        </AppProviders>
 
         <Suspense>
           <GrafanaInstrumentation />

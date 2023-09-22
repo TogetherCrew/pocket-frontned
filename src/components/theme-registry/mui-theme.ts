@@ -161,6 +161,15 @@ export const getMuiTheme = (mode: PaletteMode = 'light') => {
     typography: {
       fontFamily: PlusJakarta.style.fontFamily,
     },
+    breakpoints: {
+      values: {
+        sm: 640,
+        md: 768,
+        lg: 1024,
+        xl: 1280,
+        '2xl': 1536,
+      },
+    },
   };
 
   return createTheme(muiTheme);
