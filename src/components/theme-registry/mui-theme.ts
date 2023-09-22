@@ -58,6 +58,23 @@ export const lightPalette: ThemeOptions['palette'] = {
   onError: { main: themeColors?.onError?.light },
   errorContainer: { main: themeColors?.errorContainer?.light },
   onErrorContainer: { main: themeColors?.onErrorContainer?.light },
+
+  surface: { main: themeColors?.surface?.light },
+  onSurface: { main: themeColors?.onSurface?.light },
+  surfaceVariant: { main: themeColors?.surfaceVariant?.light },
+  onSurfaceVariant: { main: themeColors?.onSurfaceVariant?.light },
+  inverseSurface: { main: themeColors?.inverseSurface?.light },
+  inverseOnSurface: { main: themeColors?.inverseOnSurface?.light },
+
+  surfaceContainerHighest: {
+    main: themeColors?.surfaceContainerHighest?.light,
+  },
+  surfaceContainerHigh: { main: themeColors?.surfaceContainerHigh?.light },
+  surfaceContainer: { main: themeColors?.surfaceContainer?.light },
+  surfaceContainerLow: { main: themeColors?.surfaceContainerLow?.light },
+  surfaceContainerLowest: { main: themeColors?.surfaceContainerLowest?.light },
+  surfaceBright: { main: themeColors?.surfaceBright?.light },
+  surfaceDim: { main: themeColors?.surfaceDim?.light },
 };
 
 export const darkPalette: ThemeOptions['palette'] = {
@@ -101,6 +118,21 @@ export const darkPalette: ThemeOptions['palette'] = {
   onError: { main: themeColors?.onError?.dark },
   errorContainer: { main: themeColors?.errorContainer?.dark },
   onErrorContainer: { main: themeColors?.onErrorContainer?.dark },
+
+  surface: { main: themeColors?.surface?.dark },
+  onSurface: { main: themeColors?.onSurface?.dark },
+  surfaceVariant: { main: themeColors?.surfaceVariant?.dark },
+  onSurfaceVariant: { main: themeColors?.onSurfaceVariant?.dark },
+  inverseSurface: { main: themeColors?.inverseSurface?.dark },
+  inverseOnSurface: { main: themeColors?.inverseOnSurface?.dark },
+
+  surfaceContainerHighest: { main: themeColors?.surfaceContainerHighest?.dark },
+  surfaceContainerHigh: { main: themeColors?.surfaceContainerHigh?.dark },
+  surfaceContainer: { main: themeColors?.surfaceContainer?.dark },
+  surfaceContainerLow: { main: themeColors?.surfaceContainerLow?.dark },
+  surfaceContainerLowest: { main: themeColors?.surfaceContainerLowest?.dark },
+  surfaceBright: { main: themeColors?.surfaceBright?.dark },
+  surfaceDim: { main: themeColors?.surfaceDim?.dark },
 };
 
 export const getMuiTheme = (mode: PaletteMode = 'light') => {
@@ -128,6 +160,15 @@ export const getMuiTheme = (mode: PaletteMode = 'light') => {
     },
     typography: {
       fontFamily: PlusJakarta.style.fontFamily,
+    },
+    breakpoints: {
+      values: {
+        sm: 640,
+        md: 768,
+        lg: 1024,
+        xl: 1280,
+        '2xl': 1536,
+      },
     },
   };
 
