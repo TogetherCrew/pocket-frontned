@@ -6,13 +6,10 @@ const EcosystemProjectsDeliveringImpact = () => {
     <div className="flex w-full flex-col gap-5 rounded-2xl bg-surfaceContainerLow p-5">
       <div className="flex flex-col gap-2">
         <div className="flex items-center justify-between">
-          <span className="text-title-medium">
+          <span className="text-title-small sm:text-title-medium">
             Ecosystem projects delivering impact
           </span>
           <div className="bg-zinc-700 flex w-[125px] items-center justify-center rounded-lg bg-opacity-10">
-            {/*<span className="bg-onSurface bg-opacity-[0.12] text-center text-title-small text-onSurface text-opacity-40">*/}
-            {/*  Last 2 months*/}
-            {/*</span>*/}
             <DisabledTimePeriod>Last 2 months</DisabledTimePeriod>
           </div>
         </div>

@@ -6,6 +6,7 @@ import { Box } from '@mui/material';
 import type { Metadata } from 'next';
 
 import { GrafanaInstrumentation } from '@/components/instrumentations/Grafana';
+import { MobileTopBar } from '@/components/mobile-top-bar';
 import { NavigationDrawer } from '@/components/navigation-drawer';
 import { PagesHeader } from '@/components/pages-header';
 import { AppProviders } from '@/components/providers';
@@ -28,6 +29,7 @@ export default function RootLayout({
         <AppProviders>
           <NavigationDrawer width={DRAWER_WIDTH} />
           <Box sx={{ ml: { lg: `${DRAWER_WIDTH}rem` } }}>
+            <MobileTopBar />
             <PagesHeader />
             {children}
           </Box>
