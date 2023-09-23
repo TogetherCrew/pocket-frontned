@@ -1,10 +1,16 @@
 import './globals.css';
-import type { Metadata } from 'next';
-import Script from 'next/script';
 
-import { ReactQueryProviders } from '@/app/context/react-query';
-import { MuiThemeRegistry } from '@/components/theme-registry/MuiThemeRegistry';
+import { Suspense } from 'react';
+
+import { Box } from '@mui/material';
+import type { Metadata } from 'next';
+
+import { GrafanaInstrumentation } from '@/components/instrumentations/Grafana';
+import { NavigationDrawer } from '@/components/navigation-drawer';
+import { PagesHeader } from '@/components/pages-header';
+import { AppProviders } from '@/components/providers';
 import { PlusJakarta } from '@/font';
+import { DRAWER_WIDTH } from '@/utils/constants';
 
 export const metadata: Metadata = {
   title: 'Pocket Network Frontend',
@@ -19,11 +25,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={PlusJakarta.className}>
-        <MuiThemeRegistry>
-          <ReactQueryProviders>{children}</ReactQueryProviders>
-        </MuiThemeRegistry>
+        <AppProviders>
+          <NavigationDrawer width={DRAWER_WIDTH} />
+          <Box sx={{ ml: { lg: `${DRAWER_WIDTH}rem` } }}>
+            <PagesHeader />
+            {children}
+          </Box>
+        </AppProviders>
 
-        <Script src="/scripts/grafana.js" />
+        <Suspense>
+          <GrafanaInstrumentation />
+        </Suspense>
       </body>
     </html>
   );
