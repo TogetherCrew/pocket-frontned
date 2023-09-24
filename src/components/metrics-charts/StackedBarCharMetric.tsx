@@ -101,7 +101,7 @@ const StackedBarCharMetric = ({
 
   return (
     <div className="flex h-72 w-full flex-col gap-6 rounded-2xl bg-surfaceContainerLow p-5">
-      <div className="text-title-semi-large">
+      <div className="text-title-small sm:text-title-semi-large">
         <p className="m-0">{title}</p>
         {description ? (
           <p className="m-0 mt-1 text-body-medium text-onSurfaceVariant">

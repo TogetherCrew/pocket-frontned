@@ -15,7 +15,7 @@ export const PagesHeader = () => {
   };
 
   return (
-    <header className="flex items-center justify-between bg-surfaceContainerLow px-8 py-10">
+    <header className="flex h-16 items-center justify-between bg-surfaceContainerLow px-8 lg:h-28">
       <span className="text-title-large capitalize">
         {pathname?.split('/').at(1) || ''}
       </span>

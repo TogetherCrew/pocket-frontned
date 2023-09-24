@@ -3,8 +3,8 @@ import Image from 'next/image';
 export const PoktLogo = () => {
   return (
     <>
-      <div className="p-3 pb-0">
-        <figure className="m-auto p-4 pb-0">
+      <div>
+        <figure className="m-auto flex items-center justify-center">
           <Image
             src="/images/pokt-logo.svg"
             alt="pokt logo"
