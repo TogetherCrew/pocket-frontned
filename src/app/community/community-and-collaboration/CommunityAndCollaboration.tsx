@@ -1,5 +1,9 @@
+'use client';
+
+import { communityApiGateway } from '@/api/community';
 import { DisabledTimePeriod } from '@/components/disabled-time-period';
 import { LineChartMetric } from '@/components/metrics-charts';
+import { TimePeriod } from '@/utils/types';
 
 const EcosystemProjectsDeliveringImpact = () => {
   return (
@@ -10,9 +14,6 @@ const EcosystemProjectsDeliveringImpact = () => {
             Ecosystem projects delivering impact
           </span>
           <div className="bg-zinc-700 flex w-[125px] items-center justify-center rounded-lg bg-opacity-10">
-            {/*<span className="bg-onSurface bg-opacity-[0.12] text-center text-title-small text-onSurface text-opacity-40">*/}
-            {/*  Last 2 months*/}
-            {/*</span>*/}
             <DisabledTimePeriod>Last 2 months</DisabledTimePeriod>
           </div>
         </div>
@@ -26,6 +27,13 @@ const EcosystemProjectsDeliveringImpact = () => {
 };
 
 const CommunityAndCollaboration = () => {
+  const { useGetCommunityAndCollaboration } = communityApiGateway;
+  const { isLoading, isError, data } = useGetCommunityAndCollaboration({
+    timePeriod: TimePeriod.TODAY, // todo
+  });
+
+  console.log({ isLoading, isError, data });
+
   return (
     <div className="flex flex-col gap-5">
       <div className="text-title-large">Community & Collaboration</div>

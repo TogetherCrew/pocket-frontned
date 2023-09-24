@@ -1,13 +1,13 @@
 import { Adaptability } from '@/app/community/Adaptability';
-import { Awareness } from '@/app/community/Awareness';
-import { CommunityAndCollaboration } from '@/app/community/CommunityAndCollaboration';
+import { HydratedAwareness } from '@/app/community/awareness';
+import { HydratedCommunityAndCollaboration } from '@/app/community/community-and-collaboration';
 import { Transparency } from '@/app/community/Transparency';
 
 const CommunityPage = () => {
   return (
     <main className="flex flex-grow flex-col gap-8 p-6">
-      <CommunityAndCollaboration />
-      <Awareness />
+      <HydratedCommunityAndCollaboration />
+      <HydratedAwareness />
       <Transparency />
       <Adaptability />
     </main>
