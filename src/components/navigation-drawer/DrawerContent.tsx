@@ -3,6 +3,7 @@ import GroupsIcon from '@mui/icons-material/Groups';
 import ShieldIcon from '@mui/icons-material/Shield';
 import StackedBarChartRoundedIcon from '@mui/icons-material/StackedBarChartRounded';
 import { ButtonBase, SvgIconProps } from '@mui/material';
+import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 import { PoktLogo } from '@/components/navigation-drawer/PoktLogo';
@@ -47,9 +48,7 @@ export const DrawerContent = () => {
                 pathname === href ? 'bg-primaryContainer' : ''
               }`}
             >
-              {/* Can't use Link component from Next.js because of it's conflict with Grafana Faro SDK */}
-              {/* Check https://github.com/Microflow-xyz/pocket-frontned/issues/14 */}
-              <a
+              <Link
                 className="flex w-full items-center justify-stretch gap-3 p-3"
                 href={href}
               >
@@ -69,7 +68,7 @@ export const DrawerContent = () => {
                 >
                   {title}
                 </span>
-              </a>
+              </Link>
             </ButtonBase>
           ))}
         </ul>
