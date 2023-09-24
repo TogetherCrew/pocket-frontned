@@ -4,7 +4,6 @@ import { Box } from '@mui/material';
 import type { Metadata } from 'next';
 
 import { MobileTopBar } from '@/components/mobile-top-bar';
-
 import { NavigationDrawer } from '@/components/navigation-drawer';
 import { PagesHeader } from '@/components/pages-header';
 import { AppProviders } from '@/components/providers';
