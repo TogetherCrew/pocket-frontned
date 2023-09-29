@@ -7,15 +7,19 @@ import { TimePeriod } from '@/utils/types';
 export const Awareness = () => {
   const { useGetAwareness } = communityApiGateway;
   const { isLoading, isError, data } = useGetAwareness({
-    timePeriod: TimePeriod.TODAY, // todo
+    timePeriod: TimePeriod.LAST_YEAR, // todo
   });
-
-  console.log({ isLoading, isError, data });
 
   return (
     <div className="flex flex-col gap-5">
       <div className="text-title-large">Awareness</div>
-      <LineChartMetric title="Twitter followers" color="primary" />
+      <LineChartMetric
+        title="Twitter followers"
+        color="primary"
+        isLoading={isLoading}
+        isError={isError}
+        data={data?.metrics.twitter_followers.values}
+      />
     </div>
   );
 };

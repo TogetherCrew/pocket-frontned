@@ -4,6 +4,9 @@ import { useTheme } from '@mui/material';
 import { ApexOptions } from 'apexcharts';
 import dynamic from 'next/dynamic';
 
+import { ChartSkeleton } from '@/components/skeletons';
+import { PlusJakarta } from '@/font';
+
 const ApexChart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 export type SingleColumnData = {
@@ -22,9 +25,11 @@ export type MultipleColumnData = {
 type StackedBarCharMetric = {
   title: string;
   description?: string;
+  isLoading: boolean;
+  isError: boolean;
 } & (
-  | { multiple: true; data: Array<MultipleColumnData> }
-  | { multiple?: false; data: Array<SingleColumnData> }
+  | { multiple: true; data?: Array<MultipleColumnData> }
+  | { multiple?: false; data?: Array<SingleColumnData> }
 );
 
 const StackedBarCharMetric = ({
@@ -32,6 +37,8 @@ const StackedBarCharMetric = ({
   multiple,
   data,
   description,
+  isLoading,
+  isError,
 }: StackedBarCharMetric) => {
   const theme = useTheme();
 
@@ -40,21 +47,22 @@ const StackedBarCharMetric = ({
   });
 
   const chartSeriesData = multiple
-    ? data.reduce<{ [key: string]: number[] }>((acc, { values }) => {
+    ? (data || []).reduce<Record<string, number[]>>((acc, { values }) => {
         return values.reduce((innerAcc, { name, value }) => {
           return { ...innerAcc, [name]: [...(innerAcc[name] || []), value] };
         }, acc);
       }, {})
-    : { title: data.map(({ value }) => value) };
+    : { title: (data || []).map(({ value }) => value) };
 
-  const series: ApexAxisChartSeries = Object.keys(chartSeriesData).map(
-    (key) => {
-      return {
-        name: key,
-        data: chartSeriesData[key],
-      };
-    },
-  );
+  const series: ApexAxisChartSeries =
+    data && chartSeriesData
+      ? Object.keys(chartSeriesData).map((key) => {
+          return {
+            name: key.replaceAll('_', ' '),
+            data: chartSeriesData[key],
+          };
+        })
+      : [];
 
   const options: ApexOptions = {
     chart: {
@@ -97,6 +105,12 @@ const StackedBarCharMetric = ({
     fill: {
       opacity: 1,
     },
+    noData: {
+      text: 'No Data',
+      style: {
+        fontFamily: PlusJakarta.style.fontFamily,
+      },
+    },
   };
 
   return (
@@ -110,7 +124,17 @@ const StackedBarCharMetric = ({
         ) : null}
       </div>
       <div className="h-full w-full">
-        <ApexChart series={series} options={options} height="100%" type="bar" />
+        {/* todo */}
+        {isLoading ? <ChartSkeleton /> : null}
+        {isError ? 'error' : null}
+        {data ? (
+          <ApexChart
+            series={series}
+            options={options}
+            height="100%"
+            type="bar"
+          />
+        ) : null}
       </div>
     </div>
   );

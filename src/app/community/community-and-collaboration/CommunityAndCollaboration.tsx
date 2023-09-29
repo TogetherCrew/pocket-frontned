@@ -3,9 +3,20 @@
 import { communityApiGateway } from '@/api/community';
 import { DisabledTimePeriod } from '@/components/disabled-time-period';
 import { LineChartMetric } from '@/components/metrics-charts';
-import { TimePeriod } from '@/utils/types';
+import { NumberSkeleton } from '@/components/skeletons';
+import { NumberMetricsResponse, TimePeriod } from '@/utils/types';
 
-const EcosystemProjectsDeliveringImpact = () => {
+interface EcosystemProjectsDeliveringImpactProps {
+  data?: NumberMetricsResponse;
+  isLoading: boolean;
+  isError: boolean;
+}
+
+const EcosystemProjectsDeliveringImpact = ({
+  data,
+  isError,
+  isLoading,
+}: EcosystemProjectsDeliveringImpactProps) => {
   return (
     <div className="flex w-full flex-col gap-5 rounded-2xl bg-surfaceContainerLow p-5">
       <div className="flex flex-col gap-2">
@@ -21,7 +32,12 @@ const EcosystemProjectsDeliveringImpact = () => {
           This cycle/ previous cycle
         </span>
       </div>
-      <span className="text-title-large text-primary">23.21</span>
+      <span className="text-title-large text-primary">
+        {/* todo */}
+        {isLoading ? <NumberSkeleton /> : null}
+        {isError ? 'error' : null}
+        {data ? data.value : null}
+      </span>
     </div>
   );
 };
@@ -29,18 +45,32 @@ const EcosystemProjectsDeliveringImpact = () => {
 const CommunityAndCollaboration = () => {
   const { useGetCommunityAndCollaboration } = communityApiGateway;
   const { isLoading, isError, data } = useGetCommunityAndCollaboration({
-    timePeriod: TimePeriod.TODAY, // todo
+    timePeriod: TimePeriod.LAST_YEAR, // todo
   });
-
-  console.log({ isLoading, isError, data });
 
   return (
     <div className="flex flex-col gap-5">
       <div className="text-title-large">Community & Collaboration</div>
-      <EcosystemProjectsDeliveringImpact />
+      <EcosystemProjectsDeliveringImpact
+        isLoading={isLoading}
+        isError={isError}
+        data={data?.metrics.ecosystem_projects_delivering_impact}
+      />
       <div className="grid w-full grid-cols-1 gap-5 lg:grid-cols-2">
-        <LineChartMetric title="Pocket Network DNA NPS" color="secondary" />
-        <LineChartMetric title="Community NPS" color="secondary" />
+        <LineChartMetric
+          title="Pocket Network DNA NPS"
+          color="secondary"
+          isLoading={isLoading}
+          isError={isError}
+          data={data?.metrics.pocket_network_DNA_NPS.values}
+        />
+        <LineChartMetric
+          title="Community NPS"
+          color="secondary"
+          isLoading={isLoading}
+          isError={isError}
+          data={data?.metrics.community_NPS.values}
+        />
       </div>
     </div>
   );

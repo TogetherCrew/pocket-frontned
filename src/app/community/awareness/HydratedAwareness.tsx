@@ -9,7 +9,7 @@ import { TimePeriod } from '@/utils/types';
 export const HydratedAwareness = async () => {
   const queryClient = getQueryClient();
 
-  const parameters = { timePeriod: TimePeriod.TODAY }; // todo
+  const parameters = { timePeriod: TimePeriod.LAST_YEAR }; // todo
 
   await queryClient.prefetchQuery(
     queryKeys.communityKeys.useGetAwareness(parameters),
