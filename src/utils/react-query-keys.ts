@@ -8,6 +8,7 @@ import {
   GetDAOGovernanceRequest,
   GetNakamotoCoefficientRequest,
 } from '@/api/governance/governanceApi.types';
+import { GetDemandRequest } from '@/api/protocol/protocolApi.types';
 import { createKeyFactory } from '@/utils/query-key-factory';
 
 const communityKeys = createKeyFactory('community', {
@@ -33,7 +34,14 @@ const governanceKeys = createKeyFactory('governance', {
     Object.values(params),
 });
 
+const protocolKeys = createKeyFactory('protocol', {
+  useGetProtocolUpgrade: () => [null],
+
+  useGetDemand: (params: GetDemandRequest) => Object.values(params),
+});
+
 export const queryKeys = {
   communityKeys,
   governanceKeys,
+  protocolKeys,
 };

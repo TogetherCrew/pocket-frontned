@@ -3,12 +3,16 @@ import { useMemo } from 'react';
 
 import { Box, LinearProgress } from '@mui/material';
 
+import { LinearProgressSkeleton } from '@/components/skeletons';
+
 interface LinearProgressDateMetricProps {
   startDate: string;
-  endDate: string;
+  endDate?: string;
   title: string;
   description?: string;
   color?: 'primary' | 'secondary';
+  isLoading: boolean;
+  isError: boolean;
 }
 
 interface CalculatedDaysType {
@@ -22,10 +26,12 @@ export const LinearProgressDateMetric = ({
   title,
   description,
   color = 'primary',
+  isLoading,
+  isError,
 }: LinearProgressDateMetricProps) => {
   const { remainingDays, totalDays } = useMemo((): CalculatedDaysType => {
     const startTime = new Date(startDate).getTime();
-    const endTime = new Date(endDate).getTime();
+    const endTime = endDate ? new Date(endDate).getTime() : 0;
     const currentTime = new Date().getTime();
 
     const totalDays = Math.ceil((endTime - startTime) / (1000 * 60 * 60 * 24));
@@ -41,7 +47,9 @@ export const LinearProgressDateMetric = ({
   }, [startDate, endDate]);
 
   const startDateArray = new Date(startDate).toDateString().split(' ');
-  const endDateArray = new Date(endDate).toDateString().split(' ');
+  const endDateArray = endDate
+    ? new Date(endDate).toDateString().split(' ')
+    : [];
   const parentTranslate = Math.ceil(
     -1 * (100 - ((totalDays - remainingDays) * 100) / totalDays),
   );
@@ -59,32 +67,37 @@ export const LinearProgressDateMetric = ({
           ) : null}
         </div>
       </div>
-      <div>
-        <Box
-          className="mb-1 flex justify-end"
-          sx={{
-            transform: `translateX(${parentTranslate}%)`,
-          }}
-        >
+      {/* todo */}
+      {isLoading ? <LinearProgressSkeleton /> : null}
+      {isError ? <p>error</p> : null}
+      {endDate ? (
+        <div>
           <Box
-            component="span"
-            sx={{ transform: `translateX(${childTranslate}%)` }}
+            className="mb-1 mt-0.5 flex justify-end"
+            sx={{
+              transform: `translateX(${parentTranslate}%)`,
+            }}
           >
-            {remainingDays === 0
-              ? 'Launched'
-              : `${remainingDays} days remaining`}
+            <Box
+              component="span"
+              sx={{ transform: `translateX(${childTranslate}%)` }}
+            >
+              {remainingDays === 0
+                ? 'Launched'
+                : `${remainingDays} days remaining`}
+            </Box>
           </Box>
-        </Box>
-        <LinearProgress
-          variant="determinate"
-          value={Math.ceil(((totalDays - remainingDays) * 100) / totalDays)}
-          color={color}
-        />
-        <div className="mt-2 flex w-full justify-between text-title-small">
-          <span>{`${startDateArray[2]} ${startDateArray[1]} ${startDateArray[3]}`}</span>
-          <span>{`${endDateArray[2]} ${endDateArray[1]} ${endDateArray[3]}`}</span>
+          <LinearProgress
+            variant="determinate"
+            value={Math.ceil(((totalDays - remainingDays) * 100) / totalDays)}
+            color={color}
+          />
+          <div className="mb-0.5 mt-2 flex w-full justify-between text-title-small">
+            <span>{`${startDateArray[2]} ${startDateArray[1]} ${startDateArray[3]}`}</span>
+            <span>{`${endDateArray[2]} ${endDateArray[1]} ${endDateArray[3]}`}</span>
+          </div>
         </div>
-      </div>
+      ) : null}
     </div>
   );
 };
