@@ -10,8 +10,6 @@ export const Adaptability = () => {
     timePeriod: TimePeriod.LAST_YEAR, // todo
   });
 
-  console.log({ isLoading, isError, data });
-
   return (
     <div className="flex flex-col gap-5">
       <div className="text-title-large">Adaptability</div>

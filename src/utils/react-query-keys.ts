@@ -4,6 +4,10 @@ import {
   GetCommunityAndCollaborationRequest,
   GetTransparencyRequest,
 } from '@/api/community/communityApi.types';
+import {
+  GetDAOGovernanceRequest,
+  GetNakamotoCoefficientRequest,
+} from '@/api/governance/governanceApi.types';
 import { createKeyFactory } from '@/utils/query-key-factory';
 
 const communityKeys = createKeyFactory('community', {
@@ -18,6 +22,18 @@ const communityKeys = createKeyFactory('community', {
   useGetAdaptability: (params: GetAdaptabilityRequest) => Object.values(params),
 });
 
+const governanceKeys = createKeyFactory('governance', {
+  useGetNakamotoCoefficient: (params: GetNakamotoCoefficientRequest) =>
+    Object.values(params),
+
+  useGetDAOGovernance: (params: GetDAOGovernanceRequest) =>
+    Object.values(params),
+
+  useGetCollaboration: (params: GetDAOGovernanceRequest) =>
+    Object.values(params),
+});
+
 export const queryKeys = {
   communityKeys,
+  governanceKeys,
 };

@@ -36,7 +36,7 @@ const EcosystemProjectsDeliveringImpact = ({
         {/* todo */}
         {isLoading ? <NumberSkeleton /> : null}
         {isError ? 'error' : null}
-        {data ? data.value : null}
+        {data ? data.value.toFixed(2) : null}
       </span>
     </div>
   );
