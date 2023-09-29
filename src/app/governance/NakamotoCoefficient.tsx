@@ -8,8 +8,15 @@ export const NakamotoCoefficient = () => {
         <LineChartMetric
           title="Validators to control protocol"
           color="primary"
+          isLoading={true}
+          isError={false}
         />
-        <LineChartMetric title="Voters to control DAO" color="secondary" />
+        <LineChartMetric
+          title="Voters to control DAO"
+          color="secondary"
+          isLoading={true}
+          isError={false}
+        />
       </div>
     </div>
   );

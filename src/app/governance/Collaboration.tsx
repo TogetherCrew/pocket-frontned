@@ -12,6 +12,8 @@ export const Collaboration = () => {
         multiple
         data={generateMultipleData(10, 2)}
         description="Velocity of community driven vs pni/pnf driven enhancements"
+        isLoading={false}
+        isError={false}
       />
     </div>
   );

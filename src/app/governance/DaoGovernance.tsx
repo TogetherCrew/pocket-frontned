@@ -9,8 +9,15 @@ export const DaoGovernance = () => {
           title="DAO Governance Asset Value"
           color="primary"
           description="DAO Treasury x Voter Participation Ratio x (1 - Voter Power Concentration Index)"
+          isLoading={false}
+          isError={false}
         />
-        <LineChartMetric title="Value ($) of DAO Treasury" color="secondary" />
+        <LineChartMetric
+          title="Value ($) of DAO Treasury"
+          color="secondary"
+          isLoading={true}
+          isError={true}
+        />
       </div>
     </div>
   );
