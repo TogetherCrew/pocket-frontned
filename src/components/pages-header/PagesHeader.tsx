@@ -4,16 +4,21 @@ import { useCallback, useState } from 'react';
 import { SelectChangeEvent } from '@mui/material';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
-import { PERIODS, PeriodSelector } from '@/components/period-selector';
-import { TIME_PERIOD_KEY } from '@/utils/constants';
+import { PeriodSelector } from '@/components/period-selector';
+import { DEFAULT_TIME_PERIOD, TIME_PERIOD_KEY } from '@/utils/constants';
+import { TimePeriodParamType } from '@/utils/types';
+import { isValidTimePeriod } from '@/utils/validators';
 
 export const PagesHeader = () => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
-  const [period, setPeriod] = useState(
-    searchParams.get(TIME_PERIOD_KEY) || PERIODS[0].value,
-  );
+
+  const [period, setPeriod] = useState<TimePeriodParamType>(() => {
+    const param = searchParams.get(TIME_PERIOD_KEY) as TimePeriodParamType;
+
+    return isValidTimePeriod(param) ? param : DEFAULT_TIME_PERIOD;
+  });
 
   // Get a new searchParams string by merging the current
   // searchParams with a provided key/value pair
@@ -28,8 +33,8 @@ export const PagesHeader = () => {
     [searchParams],
   );
 
-  const onPeriodChange = (event: SelectChangeEvent) => {
-    setPeriod(event.target.value);
+  const onPeriodChange = (event: SelectChangeEvent<TimePeriodParamType>) => {
+    setPeriod(event.target.value as TimePeriodParamType);
 
     const queryString = createQueryString(TIME_PERIOD_KEY, event.target.value);
 

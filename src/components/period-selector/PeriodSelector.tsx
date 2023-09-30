@@ -7,25 +7,25 @@ import {
 } from '@mui/material';
 
 import { FixHydration } from '@/components/fix-hydration/FixHydration';
-import { TimePeriod } from '@/utils/types';
+import { TimePeriod, TimePeriodParamType } from '@/utils/types';
 
 type Period = {
   label: string;
-  value: string;
+  value: TimePeriodParamType;
 };
 
 /**
  * Readonly periods with important order. Don't change the indexes of array
  */
 export const PERIODS: Readonly<Array<Period>> = [
-  { label: 'Last week', value: TimePeriod['LAST_WEEK'] },
-  { label: 'Last month', value: TimePeriod['LAST_MONTH'] },
-  { label: 'Last year', value: TimePeriod['LAST_YEAR'] },
+  { label: 'Last week', value: TimePeriod.LAST_WEEK },
+  { label: 'Last month', value: TimePeriod.LAST_MONTH },
+  { label: 'Last year', value: TimePeriod.LAST_YEAR },
 ];
 
 interface PeriodSelectorProps {
   period: Period['value'];
-  onPeriodChange: (event: SelectChangeEvent) => void;
+  onPeriodChange: (event: SelectChangeEvent<TimePeriodParamType>) => void;
 }
 
 export const PeriodSelector = ({
@@ -34,7 +34,7 @@ export const PeriodSelector = ({
 }: PeriodSelectorProps) => {
   return (
     <FixHydration>
-      <Select
+      <Select<TimePeriodParamType>
         className="rounded-lg lg:min-w-[9.5rem]"
         value={period}
         onChange={onPeriodChange}

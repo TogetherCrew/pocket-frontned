@@ -49,14 +49,14 @@ export interface ApiError {
   error?: string;
 }
 
-export const enum TimePeriod {
-  // TODAY = 'today',
-  // YESTERDAY = 'yesterday',
-  LAST_WEEK = 'last-week',
-  LAST_MONTH = 'last-month',
-  LAST_YEAR = 'last-year',
-}
+export const TimePeriod = {
+  LAST_WEEK: 'last-week',
+  LAST_MONTH: 'last-month',
+  LAST_YEAR: 'last-year',
+} as const;
+
+export type TimePeriodParamType = (typeof TimePeriod)[keyof typeof TimePeriod];
 
 export interface TimePeriodRequestParameter {
-  timePeriod: TimePeriod;
+  timePeriod: TimePeriodParamType;
 }
