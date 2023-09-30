@@ -2,12 +2,14 @@
 
 import { governanceApiGateway } from '@/api/governance';
 import { LineChartMetric } from '@/components/metrics-charts';
-import { TimePeriod } from '@/utils/types';
+import { useGetTimePeriodSearchParam } from '@/hooks/use-get-time-peroiod-search-param';
 
 export const NakamotoCoefficient = () => {
+  const timePeriod = useGetTimePeriodSearchParam();
+
   const { useGetNakamotoCoefficient } = governanceApiGateway;
   const { isLoading, isError, data } = useGetNakamotoCoefficient({
-    timePeriod: TimePeriod.LAST_YEAR, // todo
+    timePeriod,
   });
 
   return (

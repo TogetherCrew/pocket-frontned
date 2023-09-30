@@ -2,12 +2,14 @@
 
 import { governanceApiGateway } from '@/api/governance';
 import { StackedBarCharMetric } from '@/components/metrics-charts';
-import { TimePeriod } from '@/utils/types';
+import { useGetTimePeriodSearchParam } from '@/hooks/use-get-time-peroiod-search-param';
 
 export const Collaboration = () => {
+  const timePeriod = useGetTimePeriodSearchParam();
+
   const { useGetCollaboration } = governanceApiGateway;
   const { isLoading, isError, data } = useGetCollaboration({
-    timePeriod: TimePeriod.LAST_YEAR,
+    timePeriod,
   });
 
   return (
