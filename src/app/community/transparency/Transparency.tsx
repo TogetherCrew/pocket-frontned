@@ -2,12 +2,14 @@
 
 import { communityApiGateway } from '@/api/community';
 import { LineChartMetric } from '@/components/metrics-charts';
-import { TimePeriod } from '@/utils/types';
+import { useGetTimePeriodSearchParam } from '@/hooks/use-get-time-peroiod-search-param';
 
 export const Transparency = () => {
+  const timePeriod = useGetTimePeriodSearchParam();
+
   const { useGetTransparency } = communityApiGateway;
   const { isLoading, isError, data } = useGetTransparency({
-    timePeriod: TimePeriod.LAST_YEAR,
+    timePeriod,
   });
 
   return (

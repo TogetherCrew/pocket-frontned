@@ -44,9 +44,9 @@ const EcosystemProjectsDeliveringImpact = ({
 };
 
 const CommunityAndCollaboration = () => {
-  const { useGetCommunityAndCollaboration } = communityApiGateway;
   const timePeriod = useGetTimePeriodSearchParam();
 
+  const { useGetCommunityAndCollaboration } = communityApiGateway;
   const { isLoading, isError, data } = useGetCommunityAndCollaboration({
     timePeriod,
   });

@@ -2,12 +2,14 @@
 
 import { communityApiGateway } from '@/api/community';
 import { StackedBarCharMetric } from '@/components/metrics-charts';
-import { TimePeriod } from '@/utils/types';
+import { useGetTimePeriodSearchParam } from '@/hooks/use-get-time-peroiod-search-param';
 
 export const Adaptability = () => {
+  const timePeriod = useGetTimePeriodSearchParam();
+
   const { useGetAdaptability } = communityApiGateway;
   const { isLoading, isError, data } = useGetAdaptability({
-    timePeriod: TimePeriod.LAST_YEAR, // todo
+    timePeriod,
   });
 
   return (
