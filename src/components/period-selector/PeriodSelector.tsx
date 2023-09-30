@@ -34,7 +34,7 @@ export const PeriodSelector = ({
   return (
     <FixHydration>
       <Select
-        className="min-w-[9.5rem] rounded-lg"
+        className="rounded-lg lg:min-w-[9.5rem]"
         value={period}
         onChange={onPeriodChange}
         renderValue={(value) => (

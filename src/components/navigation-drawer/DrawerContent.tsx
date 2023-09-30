@@ -37,7 +37,9 @@ export const DrawerContent = () => {
 
   return (
     <>
-      <PoktLogo />
+      <div className="flex items-center justify-start p-7 pb-0">
+        <PoktLogo />
+      </div>
       <div className="p-3 pt-1">
         <ul className="flex w-full flex-col items-start justify-stretch px-0">
           {items.map(({ title, Icon, href }) => (
