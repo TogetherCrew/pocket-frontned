@@ -5,12 +5,14 @@ import {
   LineChartMetric,
   StackedBarCharMetric,
 } from '@/components/metrics-charts';
-import { TimePeriod } from '@/utils/types';
+import { useGetTimePeriodSearchParam } from '@/hooks/use-get-time-peroiod-search-param';
 
 export const Demand = () => {
+  const timePeriod = useGetTimePeriodSearchParam();
+
   const { useGetDemand } = protocolApiGateway;
   const { isLoading, isError, data } = useGetDemand({
-    timePeriod: TimePeriod.LAST_YEAR, // todo
+    timePeriod,
   });
 
   return (
