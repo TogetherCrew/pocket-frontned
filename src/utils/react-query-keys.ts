@@ -8,6 +8,11 @@ import {
   GetDAOGovernanceRequest,
   GetNakamotoCoefficientRequest,
 } from '@/api/governance/governanceApi.types';
+import {
+  GetAnnualizedYieldRequest,
+  GetCoverageRatioRequest,
+  GetLiquidityRequest,
+} from '@/api/pokt/pokt.types';
 import { GetDemandRequest } from '@/api/protocol/protocolApi.types';
 import { createKeyFactory } from '@/utils/query-key-factory';
 
@@ -40,8 +45,19 @@ const protocolKeys = createKeyFactory('protocol', {
   useGetDemand: (params: GetDemandRequest) => Object.values(params),
 });
 
+const poktKeys = createKeyFactory('pokt', {
+  useGetLiquidity: (params: GetLiquidityRequest) => Object.values(params),
+
+  useGetCoverageRatio: (params: GetCoverageRatioRequest) =>
+    Object.values(params),
+
+  useGetAnnualizedYield: (params: GetAnnualizedYieldRequest) =>
+    Object.values(params),
+});
+
 export const queryKeys = {
   communityKeys,
   governanceKeys,
   protocolKeys,
+  poktKeys,
 };
