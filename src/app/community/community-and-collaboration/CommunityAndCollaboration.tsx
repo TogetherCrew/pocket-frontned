@@ -1,9 +1,12 @@
 'use client';
 
+import { useSearchParams } from 'next/navigation';
+
 import { communityApiGateway } from '@/api/community';
 import { DisabledTimePeriod } from '@/components/disabled-time-period';
 import { LineChartMetric } from '@/components/metrics-charts';
 import { NumberSkeleton } from '@/components/skeletons';
+import { TIME_PERIOD_KEY } from '@/utils/constants';
 import { NumberMetricsResponse, TimePeriod } from '@/utils/types';
 
 interface EcosystemProjectsDeliveringImpactProps {
@@ -43,9 +46,12 @@ const EcosystemProjectsDeliveringImpact = ({
 };
 
 const CommunityAndCollaboration = () => {
+  const searchParams = useSearchParams();
   const { useGetCommunityAndCollaboration } = communityApiGateway;
+
   const { isLoading, isError, data } = useGetCommunityAndCollaboration({
-    timePeriod: TimePeriod.LAST_YEAR, // todo
+    timePeriod:
+      (searchParams.get(TIME_PERIOD_KEY) as TimePeriod) || TimePeriod.LAST_YEAR, // todo
   });
 
   return (

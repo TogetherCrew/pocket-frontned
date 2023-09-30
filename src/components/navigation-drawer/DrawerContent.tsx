@@ -4,7 +4,7 @@ import ShieldIcon from '@mui/icons-material/Shield';
 import StackedBarChartRoundedIcon from '@mui/icons-material/StackedBarChartRounded';
 import { ButtonBase, SvgIconProps } from '@mui/material';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 
 import { Copyright } from '@/components/navigation-drawer/Copyright';
 import { PoktLogo } from '@/components/navigation-drawer/PoktLogo';
@@ -36,6 +36,7 @@ const items = [
 
 export const DrawerContent = () => {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const { isOpen, toggleDrawer } = useNavigationDrawer();
 
   return (
@@ -55,7 +56,7 @@ export const DrawerContent = () => {
             >
               <Link
                 className="flex w-full items-center justify-stretch gap-3 p-3"
-                href={href}
+                href={`${href}?${searchParams.toString()}`}
                 onClick={() => {
                   // Toggle only when the drawer is open,
                   // so that the toggle operation is not performed in the desktop size

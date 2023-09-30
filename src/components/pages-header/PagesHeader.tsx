@@ -1,17 +1,39 @@
 'use client';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import { SelectChangeEvent } from '@mui/material';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import { PERIODS, PeriodSelector } from '@/components/period-selector';
+import { TIME_PERIOD_KEY } from '@/utils/constants';
 
 export const PagesHeader = () => {
+  const searchParams = useSearchParams();
   const pathname = usePathname();
-  const [period, setPeriod] = useState(PERIODS[0].value);
+  const router = useRouter();
+  const [period, setPeriod] = useState(
+    searchParams.get(TIME_PERIOD_KEY) || PERIODS[0].value,
+  );
+
+  // Get a new searchParams string by merging the current
+  // searchParams with a provided key/value pair
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString());
+
+      params.set(name, value);
+
+      return params.toString();
+    },
+    [searchParams],
+  );
 
   const onPeriodChange = (event: SelectChangeEvent) => {
     setPeriod(event.target.value);
+
+    const queryString = createQueryString(TIME_PERIOD_KEY, event.target.value);
+
+    router.push(`${pathname}?${queryString}`);
   };
 
   return (

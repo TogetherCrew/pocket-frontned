@@ -7,6 +7,7 @@ import {
 } from '@mui/material';
 
 import { FixHydration } from '@/components/fix-hydration/FixHydration';
+import { TimePeriod } from '@/utils/types';
 
 type Period = {
   label: string;
@@ -17,9 +18,9 @@ type Period = {
  * Readonly periods with important order. Don't change the indexes of array
  */
 export const PERIODS: Readonly<Array<Period>> = [
-  { label: 'Last week', value: '1' },
-  { label: 'Last 2 week', value: '2' },
-  { label: 'Last month', value: '3' },
+  { label: 'Last week', value: TimePeriod['LAST_WEEK'] },
+  { label: 'Last month', value: TimePeriod['LAST_MONTH'] },
+  { label: 'Last year', value: TimePeriod['LAST_YEAR'] },
 ];
 
 interface PeriodSelectorProps {
@@ -42,10 +43,11 @@ export const PeriodSelector = ({
             <InputAdornment position="start">
               <CalendarMonthTwoToneIcon fontSize="small" />
             </InputAdornment>
-            {PERIODS[+value - 1].label}
+            {PERIODS.find(({ value: period }) => period === value)?.label}
           </div>
         )}
         size="small"
+        MenuProps={{ MenuListProps: { className: 'py-0' } }}
       >
         {PERIODS.map(({ label, value }) => {
           return (
