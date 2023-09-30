@@ -89,7 +89,7 @@ const LineChartMetric = ({
     colors: [theme.palette[color].main],
     tooltip: {
       x: {
-        format: 'dd/MM/yy HH:mm',
+        format: 'dd/MM/yyyy',
       },
     },
     stroke: {

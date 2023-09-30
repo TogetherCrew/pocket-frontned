@@ -52,7 +52,7 @@ const StackedBarCharMetric = ({
           return { ...innerAcc, [name]: [...(innerAcc[name] || []), value] };
         }, acc);
       }, {})
-    : { title: (data || []).map(({ value }) => value) };
+    : { [title]: (data || []).map(({ value }) => value) };
 
   const series: ApexAxisChartSeries =
     data && chartSeriesData
@@ -86,7 +86,7 @@ const StackedBarCharMetric = ({
     ],
     tooltip: {
       x: {
-        format: 'dd/MM/yy HH:mm',
+        format: 'dd/MM/yyyy',
       },
     },
     plotOptions: {
