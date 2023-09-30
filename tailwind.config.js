@@ -306,6 +306,13 @@ module.exports = {
         'label-medium': ['0.75rem', { fontWeight: 500, lineHeight: '1rem' }],
         'label-small': ['0.875rem', { fontWeight: 500, lineHeight: '1.25rem' }],
         'title-large': ['1.375rem', { fontWeight: 700, lineHeight: '1.5rem' }],
+        'title-semi-bold': [
+          '0.875rem',
+          {
+            fontWeight: 600,
+            lineHeight: '1.25rem',
+          },
+        ],
         'title-semi-large': [
           '1.125rem',
           {

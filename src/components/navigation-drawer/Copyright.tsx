@@ -1,14 +1,14 @@
 import Image from 'next/image';
 
-export const PoktLogo = () => {
+export const Copyright = () => {
   return (
     <div>
       <figure className="m-auto flex items-center justify-center">
         <Image
-          src="/images/pokt-logo.svg"
-          alt="pokt logo"
-          width={74}
-          height={24}
+          src="/images/copy-right.svg"
+          alt="copy right"
+          width={109}
+          height={35}
         />
       </figure>
     </div>
