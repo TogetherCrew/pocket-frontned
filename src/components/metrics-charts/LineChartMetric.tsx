@@ -5,6 +5,7 @@ import { ApexOptions } from 'apexcharts';
 import dynamic from 'next/dynamic';
 
 import { DisabledTimePeriod } from '@/components/disabled-time-period';
+import { ChartError } from '@/components/errors';
 import { ChartSkeleton } from '@/components/skeletons';
 import { PlusJakarta } from '@/font';
 
@@ -50,6 +51,7 @@ interface LineChartMetricProps {
   description?: string;
   isLoading: boolean;
   isError: boolean;
+  errorMessage?: string;
 }
 
 const LineChartMetric = ({
@@ -61,6 +63,7 @@ const LineChartMetric = ({
   description = '',
   isLoading,
   isError,
+  errorMessage,
 }: LineChartMetricProps) => {
   const theme = useTheme();
   const series: ApexAxisChartSeries = [
@@ -123,10 +126,11 @@ const LineChartMetric = ({
         ) : null}
       </div>
       <div className="h-full w-full">
-        {/* todo */}
-        {isLoading ? <ChartSkeleton /> : null}
-        {isError ? 'error' : null}
-        {data ? (
+        {isLoading ? (
+          <ChartSkeleton />
+        ) : isError ? (
+          <ChartError message={errorMessage} />
+        ) : data ? (
           <ApexChart
             series={series}
             options={options}

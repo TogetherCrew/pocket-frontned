@@ -5,7 +5,7 @@ import { LinearProgressDateMetric } from '@/components/metrics-charts';
 
 export const ProtocolUpgrade = () => {
   const { useGetProtocolUpgrade } = protocolApiGateway;
-  const { isLoading, isError, data } = useGetProtocolUpgrade();
+  const { isLoading, isError, data, error } = useGetProtocolUpgrade();
 
   return (
     <div className="flex flex-col gap-5">
@@ -17,6 +17,7 @@ export const ProtocolUpgrade = () => {
           isLoading={isLoading}
           isError={isError}
           endDate={data?.metrics.v1_mainnet_launch_date.value}
+          errorMessage={error?.message}
         />
       </div>
     </div>

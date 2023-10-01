@@ -8,7 +8,7 @@ export const Adaptability = () => {
   const timePeriod = useGetTimePeriodSearchParam();
 
   const { useGetAdaptability } = communityApiGateway;
-  const { isLoading, isError, data } = useGetAdaptability({
+  const { isLoading, isError, data, error } = useGetAdaptability({
     timePeriod,
   });
 
@@ -23,6 +23,7 @@ export const Adaptability = () => {
         data={
           data?.metrics.velocity_of_experiments_v_no_debated_proposals.values
         }
+        errorMessage={error?.message}
       />
     </div>
   );

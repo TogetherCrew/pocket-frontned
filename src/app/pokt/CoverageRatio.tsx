@@ -8,7 +8,9 @@ export const CoverageRatio = () => {
   const timePeriod = useGetTimePeriodSearchParam();
 
   const { useGetCoverageRatio } = poktApiGateway;
-  const { isLoading, isError, data } = useGetCoverageRatio({ timePeriod });
+  const { isLoading, isError, data, error } = useGetCoverageRatio({
+    timePeriod,
+  });
 
   return (
     <LineChartMetric
@@ -18,6 +20,7 @@ export const CoverageRatio = () => {
       isLoading={isLoading}
       isError={isError}
       data={data?.metrics.coverage_ratio.values}
+      errorMessage={error?.message}
     />
   );
 };

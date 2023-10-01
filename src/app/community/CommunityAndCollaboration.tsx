@@ -2,6 +2,7 @@
 
 import { communityApiGateway } from '@/api/community';
 import { DisabledTimePeriod } from '@/components/disabled-time-period';
+import { NumberError } from '@/components/errors';
 import { LineChartMetric } from '@/components/metrics-charts';
 import { NumberSkeleton } from '@/components/skeletons';
 import { useGetTimePeriodSearchParam } from '@/hooks/use-get-time-peroiod-search-param';
@@ -11,12 +12,14 @@ interface EcosystemProjectsDeliveringImpactProps {
   data?: NumberMetricsResponse;
   isLoading: boolean;
   isError: boolean;
+  errorMessage?: string;
 }
 
 const EcosystemProjectsDeliveringImpact = ({
   data,
   isError,
   isLoading,
+  errorMessage,
 }: EcosystemProjectsDeliveringImpactProps) => {
   return (
     <div className="flex w-full flex-col gap-5 rounded-2xl bg-surfaceContainerLow p-5">
@@ -34,10 +37,13 @@ const EcosystemProjectsDeliveringImpact = ({
         </span>
       </div>
       <span className="text-title-large text-primary">
-        {/* todo */}
-        {isLoading ? <NumberSkeleton /> : null}
-        {isError ? 'error' : null}
-        {data ? data.value.toFixed(2) : null}
+        {isLoading ? (
+          <NumberSkeleton />
+        ) : isError ? (
+          <NumberError message={errorMessage} />
+        ) : data ? (
+          data.value.toFixed(2)
+        ) : null}
       </span>
     </div>
   );
@@ -47,7 +53,7 @@ const CommunityAndCollaboration = () => {
   const timePeriod = useGetTimePeriodSearchParam();
 
   const { useGetCommunityAndCollaboration } = communityApiGateway;
-  const { isLoading, isError, data } = useGetCommunityAndCollaboration({
+  const { isLoading, isError, data, error } = useGetCommunityAndCollaboration({
     timePeriod,
   });
 
@@ -58,6 +64,7 @@ const CommunityAndCollaboration = () => {
         isLoading={isLoading}
         isError={isError}
         data={data?.metrics.ecosystem_projects_delivering_impact}
+        errorMessage={error?.message}
       />
       <div className="grid w-full grid-cols-1 gap-5 lg:grid-cols-2">
         <LineChartMetric
@@ -66,6 +73,7 @@ const CommunityAndCollaboration = () => {
           isLoading={isLoading}
           isError={isError}
           data={data?.metrics.pocket_network_DNA_NPS.values}
+          errorMessage={error?.message}
         />
         <LineChartMetric
           title="Community NPS"
@@ -73,6 +81,7 @@ const CommunityAndCollaboration = () => {
           isLoading={isLoading}
           isError={isError}
           data={data?.metrics.community_NPS.values}
+          errorMessage={error?.message}
         />
       </div>
     </div>

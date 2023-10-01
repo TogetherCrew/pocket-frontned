@@ -6,6 +6,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import { PeriodSelector } from '@/components/period-selector';
 import { DEFAULT_TIME_PERIOD, TIME_PERIOD_KEY } from '@/utils/constants';
+import { paths, PathsObject } from '@/utils/paths';
 import { TimePeriodParamType } from '@/utils/types';
 import { isValidTimePeriod } from '@/utils/validators';
 
@@ -44,7 +45,7 @@ export const PagesHeader = () => {
   return (
     <header className="flex h-16 items-center justify-between bg-surfaceContainerLow px-8 lg:h-28">
       <span className="text-title-large capitalize">
-        {pathname?.split('/').at(1) || ''}
+        {paths[pathname?.split('/').at(1) as keyof PathsObject].title || ''}
       </span>
       <PeriodSelector period={period} onPeriodChange={onPeriodChange} />
     </header>

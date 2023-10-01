@@ -8,7 +8,7 @@ export const Collaboration = () => {
   const timePeriod = useGetTimePeriodSearchParam();
 
   const { useGetCollaboration } = governanceApiGateway;
-  const { isLoading, isError, data } = useGetCollaboration({
+  const { isLoading, isError, data, error } = useGetCollaboration({
     timePeriod,
   });
 
@@ -22,6 +22,7 @@ export const Collaboration = () => {
         isLoading={isLoading}
         isError={isError}
         data={data?.metrics.proposals_from_community_v_core_contributors.values}
+        errorMessage={error?.message}
       />
     </div>
   );

@@ -8,7 +8,7 @@ export const Liquidity = () => {
   const timePeriod = useGetTimePeriodSearchParam();
 
   const { useGetLiquidity } = poktApiGateway;
-  const { isLoading, isError, data } = useGetLiquidity({ timePeriod });
+  const { isLoading, isError, data, error } = useGetLiquidity({ timePeriod });
 
   return (
     <LineChartMetric
@@ -17,6 +17,7 @@ export const Liquidity = () => {
       isLoading={isLoading}
       isError={isError}
       data={data?.metrics.POKT_liquidity.values}
+      errorMessage={error?.message}
     />
   );
 };

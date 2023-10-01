@@ -11,7 +11,7 @@ export const Demand = () => {
   const timePeriod = useGetTimePeriodSearchParam();
 
   const { useGetDemand } = protocolApiGateway;
-  const { isLoading, isError, data } = useGetDemand({
+  const { isLoading, isError, data, error } = useGetDemand({
     timePeriod,
   });
 
@@ -24,6 +24,7 @@ export const Demand = () => {
         isLoading={isLoading}
         isError={isError}
         data={data?.metrics.protocol_revenue.values}
+        errorMessage={error?.message}
       />
       <StackedBarCharMetric
         title="Gateway operator share of relays"
@@ -31,6 +32,7 @@ export const Demand = () => {
         isLoading={isLoading}
         isError={isError}
         multiple={false}
+        errorMessage={error?.message}
       />
     </div>
   );

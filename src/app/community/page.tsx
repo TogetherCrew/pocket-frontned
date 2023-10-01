@@ -1,7 +1,7 @@
-import { Adaptability } from '@/app/community/adaptability';
-import { Awareness } from '@/app/community/awareness';
-import { CommunityAndCollaboration } from '@/app/community/community-and-collaboration';
-import { Transparency } from '@/app/community/transparency';
+import { Adaptability } from '@/app/community/Adaptability';
+import { Awareness } from '@/app/community/Awareness';
+import { CommunityAndCollaboration } from '@/app/community/CommunityAndCollaboration';
+import { Transparency } from '@/app/community/Transparency';
 
 const CommunityPage = () => {
   return (

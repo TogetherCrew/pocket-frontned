@@ -8,7 +8,7 @@ export const Transparency = () => {
   const timePeriod = useGetTimePeriodSearchParam();
 
   const { useGetTransparency } = communityApiGateway;
-  const { isLoading, isError, data } = useGetTransparency({
+  const { isLoading, isError, data, error } = useGetTransparency({
     timePeriod,
   });
 
@@ -22,6 +22,7 @@ export const Transparency = () => {
           isLoading={isLoading}
           isError={isError}
           data={data?.metrics.projects_working_in_the_open.values}
+          errorMessage={error?.message}
         />
         <LineChartMetric
           title="Percentage of projects self-reporting"
@@ -31,6 +32,7 @@ export const Transparency = () => {
           isLoading={isLoading}
           isError={isError}
           data={data?.metrics.percentage_of_projects_self_reporting.values}
+          errorMessage={error?.message}
         />
       </div>
     </div>

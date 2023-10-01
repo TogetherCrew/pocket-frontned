@@ -3,6 +3,7 @@ import { useMemo } from 'react';
 
 import { Box, LinearProgress } from '@mui/material';
 
+import { ChartError } from '@/components/errors';
 import { LinearProgressSkeleton } from '@/components/skeletons';
 
 interface LinearProgressDateMetricProps {
@@ -13,6 +14,7 @@ interface LinearProgressDateMetricProps {
   color?: 'primary' | 'secondary';
   isLoading: boolean;
   isError: boolean;
+  errorMessage?: string;
 }
 
 interface CalculatedDaysType {
@@ -28,6 +30,7 @@ export const LinearProgressDateMetric = ({
   color = 'primary',
   isLoading,
   isError,
+  errorMessage,
 }: LinearProgressDateMetricProps) => {
   const { remainingDays, totalDays } = useMemo((): CalculatedDaysType => {
     const startTime = new Date(startDate).getTime();
@@ -67,10 +70,11 @@ export const LinearProgressDateMetric = ({
           ) : null}
         </div>
       </div>
-      {/* todo */}
-      {isLoading ? <LinearProgressSkeleton /> : null}
-      {isError ? <p>error</p> : null}
-      {endDate ? (
+      {isLoading ? (
+        <LinearProgressSkeleton />
+      ) : isError ? (
+        <ChartError message={errorMessage} />
+      ) : endDate ? (
         <div>
           <Box
             className="mb-1 mt-0.5 flex justify-end"

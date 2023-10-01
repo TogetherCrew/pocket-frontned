@@ -10,3 +10,5 @@ export const apiConfig = {
 };
 
 export const DEFAULT_TIME_PERIOD = TimePeriod.LAST_WEEK;
+
+export const DEFAULT_ERROR_TEXT = 'Oops! Something Went Wrong.';

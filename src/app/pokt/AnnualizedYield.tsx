@@ -8,7 +8,9 @@ export const AnnualizedYield = () => {
   const timePeriod = useGetTimePeriodSearchParam();
 
   const { useGetAnnualizedYield } = poktApiGateway;
-  const { isLoading, isError, data } = useGetAnnualizedYield({ timePeriod });
+  const { isLoading, isError, data, error } = useGetAnnualizedYield({
+    timePeriod,
+  });
 
   return (
     <LineChartMetric
@@ -18,6 +20,7 @@ export const AnnualizedYield = () => {
       isLoading={isLoading}
       isError={isError}
       data={data?.metrics.annualised_yield.values}
+      errorMessage={error?.message}
     />
   );
 };

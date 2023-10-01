@@ -8,7 +8,7 @@ export const DaoGovernance = () => {
   const timePeriod = useGetTimePeriodSearchParam();
 
   const { useGetDAOGovernance } = governanceApiGateway;
-  const { isLoading, isError, data } = useGetDAOGovernance({
+  const { isLoading, isError, data, error } = useGetDAOGovernance({
     timePeriod,
   });
 
@@ -23,6 +23,7 @@ export const DaoGovernance = () => {
           isLoading={isLoading}
           isError={isError}
           data={data?.metrics.DAO_governance_asset_value.values}
+          errorMessage={error?.message}
         />
         <LineChartMetric
           title="Value ($) of DAO Treasury"
@@ -30,6 +31,7 @@ export const DaoGovernance = () => {
           isLoading={isLoading}
           isError={isError}
           data={data?.metrics.DAO_treasury.values}
+          errorMessage={error?.message}
         />
       </div>
     </div>

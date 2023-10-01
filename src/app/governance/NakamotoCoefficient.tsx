@@ -8,7 +8,7 @@ export const NakamotoCoefficient = () => {
   const timePeriod = useGetTimePeriodSearchParam();
 
   const { useGetNakamotoCoefficient } = governanceApiGateway;
-  const { isLoading, isError, data } = useGetNakamotoCoefficient({
+  const { isLoading, isError, data, error } = useGetNakamotoCoefficient({
     timePeriod,
   });
 
@@ -22,6 +22,7 @@ export const NakamotoCoefficient = () => {
           isLoading={isLoading}
           isError={isError}
           data={data?.metrics.validators_to_control_protocol.values}
+          errorMessage={error?.message}
         />
         <LineChartMetric
           title="Voters to control DAO"
@@ -29,6 +30,7 @@ export const NakamotoCoefficient = () => {
           isLoading={isLoading}
           isError={isError}
           data={data?.metrics.voters_to_control_DAO.values}
+          errorMessage={error?.message}
         />
       </div>
     </div>

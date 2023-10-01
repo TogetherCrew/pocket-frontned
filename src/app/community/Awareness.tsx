@@ -8,7 +8,7 @@ export const Awareness = () => {
   const timePeriod = useGetTimePeriodSearchParam();
 
   const { useGetAwareness } = communityApiGateway;
-  const { isLoading, isError, data } = useGetAwareness({
+  const { isLoading, isError, data, error } = useGetAwareness({
     timePeriod,
   });
 
@@ -21,6 +21,7 @@ export const Awareness = () => {
         isLoading={isLoading}
         isError={isError}
         data={data?.metrics.twitter_followers.values}
+        errorMessage={error?.message}
       />
     </div>
   );
