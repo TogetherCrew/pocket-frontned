@@ -102,6 +102,23 @@ const LineChartMetric = ({
     xaxis: {
       type: 'datetime',
     },
+    yaxis: {
+      labels: {
+        formatter: (val: number): string | string[] => {
+          let result = val.toString();
+
+          if (Math.floor(val) !== val) {
+            result = val.toFixed(3);
+          }
+
+          if (val > 1e5) {
+            result = parseFloat(result).toPrecision(4);
+          }
+
+          return result;
+        },
+      },
+    },
     noData: {
       text: 'No Data',
       style: {
