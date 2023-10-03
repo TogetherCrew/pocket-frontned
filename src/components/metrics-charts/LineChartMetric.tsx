@@ -5,6 +5,9 @@ import { ApexOptions } from 'apexcharts';
 import dynamic from 'next/dynamic';
 
 import { DisabledTimePeriod } from '@/components/disabled-time-period';
+import { ChartError } from '@/components/errors';
+import { ChartSkeleton } from '@/components/skeletons';
+import { PlusJakarta } from '@/font';
 
 const ApexChart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
@@ -38,6 +41,7 @@ type LineChartMetricData = Array<{
   date: string;
   value: number;
 }>;
+
 interface LineChartMetricProps {
   title: string;
   data?: LineChartMetricData;
@@ -45,23 +49,31 @@ interface LineChartMetricProps {
   showDisabledTimePeriod?: boolean;
   disabledTimePeriodText?: string;
   description?: string;
+  isLoading: boolean;
+  isError: boolean;
+  errorMessage?: string;
 }
 
 const LineChartMetric = ({
   title,
-  data = generateData(50),
+  data,
   color = 'primary',
   showDisabledTimePeriod = false,
   disabledTimePeriodText,
   description = '',
+  isLoading,
+  isError,
+  errorMessage,
 }: LineChartMetricProps) => {
   const theme = useTheme();
   const series: ApexAxisChartSeries = [
     {
-      name: 'pocket network',
-      data: data.map(({ date, value }) => {
-        return { x: date, y: value };
-      }),
+      name: title,
+      data: data
+        ? data.map(({ date, value }) => {
+            return { x: date, y: value };
+          })
+        : [],
     },
   ];
   const options: ApexOptions = {
@@ -80,7 +92,7 @@ const LineChartMetric = ({
     colors: [theme.palette[color].main],
     tooltip: {
       x: {
-        format: 'dd/MM/yy HH:mm',
+        format: 'dd/MM/yyyy',
       },
     },
     stroke: {
@@ -89,6 +101,12 @@ const LineChartMetric = ({
     },
     xaxis: {
       type: 'datetime',
+    },
+    noData: {
+      text: 'No Data',
+      style: {
+        fontFamily: PlusJakarta.style.fontFamily,
+      },
     },
   };
 
@@ -108,12 +126,18 @@ const LineChartMetric = ({
         ) : null}
       </div>
       <div className="h-full w-full">
-        <ApexChart
-          series={series}
-          options={options}
-          height="100%"
-          type="area"
-        />
+        {isLoading ? (
+          <ChartSkeleton />
+        ) : isError ? (
+          <ChartError message={errorMessage} />
+        ) : data ? (
+          <ApexChart
+            series={series}
+            options={options}
+            height="100%"
+            type="area"
+          />
+        ) : null}
       </div>
     </div>
   );

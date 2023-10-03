@@ -1,12 +1,31 @@
-import { DisabledTimePeriod } from '@/components/disabled-time-period';
-import { LineChartMetric } from '@/components/metrics-charts';
+'use client';
 
-const EcosystemProjectsDeliveringImpact = () => {
+import { communityApiGateway } from '@/api/community';
+import { DisabledTimePeriod } from '@/components/disabled-time-period';
+import { NumberError } from '@/components/errors';
+import { LineChartMetric } from '@/components/metrics-charts';
+import { NumberSkeleton } from '@/components/skeletons';
+import { useGetTimePeriodSearchParam } from '@/hooks/use-get-time-peroiod-search-param';
+import { NumberMetricsResponse } from '@/utils/types';
+
+interface EcosystemProjectsDeliveringImpactProps {
+  data?: NumberMetricsResponse;
+  isLoading: boolean;
+  isError: boolean;
+  errorMessage?: string;
+}
+
+const EcosystemProjectsDeliveringImpact = ({
+  data,
+  isError,
+  isLoading,
+  errorMessage,
+}: EcosystemProjectsDeliveringImpactProps) => {
   return (
     <div className="flex w-full flex-col gap-5 rounded-2xl bg-surfaceContainerLow p-5">
       <div className="flex flex-col gap-2">
         <div className="flex items-center justify-between">
-          <span className="text-title-small sm:text-title-medium">
+          <span className="text-title-medium">
             Ecosystem projects delivering impact
           </span>
           <div className="bg-zinc-700 flex w-[125px] items-center justify-center rounded-lg bg-opacity-10">
@@ -17,19 +36,53 @@ const EcosystemProjectsDeliveringImpact = () => {
           This cycle/ previous cycle
         </span>
       </div>
-      <span className="text-title-large text-primary">23.21</span>
+      <span className="text-title-large text-primary">
+        {isLoading ? (
+          <NumberSkeleton />
+        ) : isError ? (
+          <NumberError message={errorMessage} />
+        ) : data ? (
+          data.value.toFixed(2)
+        ) : null}
+      </span>
     </div>
   );
 };
 
 const CommunityAndCollaboration = () => {
+  const timePeriod = useGetTimePeriodSearchParam();
+
+  const { useGetCommunityAndCollaboration } = communityApiGateway;
+  const { isLoading, isError, data, error } = useGetCommunityAndCollaboration({
+    timePeriod,
+  });
+
   return (
     <div className="flex flex-col gap-5">
       <div className="text-title-large">Community & Collaboration</div>
-      <EcosystemProjectsDeliveringImpact />
+      <EcosystemProjectsDeliveringImpact
+        isLoading={isLoading}
+        isError={isError}
+        data={data?.metrics.ecosystem_projects_delivering_impact}
+        errorMessage={error?.message}
+      />
       <div className="grid w-full grid-cols-1 gap-5 lg:grid-cols-2">
-        <LineChartMetric title="Pocket Network DNA NPS" color="secondary" />
-        <LineChartMetric title="Community NPS" color="secondary" />
+        <LineChartMetric
+          title="Pocket Network DNA NPS"
+          color="secondary"
+          isLoading={isLoading}
+          isError={isError}
+          data={data?.metrics.pocket_network_DNA_NPS.values}
+          errorMessage={error?.message}
+        />
+        <LineChartMetric
+          title="Community NPS"
+          color="secondary"
+          isLoading={isLoading}
+          isError={isError}
+          data={data?.metrics.community_NPS.values}
+          errorMessage={error?.message}
+        />
       </div>
     </div>
   );

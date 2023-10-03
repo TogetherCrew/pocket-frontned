@@ -2,13 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-
 a {
-    text-decoration: none;
-    color: inherit;
+  text-decoration: none;
+  color: inherit;
 }
 
 li {
-    marker: none;
-    list-style: none;
+  marker: none;
+  list-style: none;
 }
