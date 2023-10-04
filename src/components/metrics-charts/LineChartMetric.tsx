@@ -100,7 +100,39 @@ const LineChartMetric = ({
       width: 2,
     },
     xaxis: {
-      type: 'datetime',
+      // also we can change type to 'datetime' and remove formatter if there was enough data
+      type: 'category',
+      labels: {
+        formatter: function (val) {
+          if (!val) return '';
+
+          const date = new Date(val);
+          const formatter = new Intl.DateTimeFormat('en-US', {
+            month: 'short',
+            day: 'numeric',
+          });
+          const parts = formatter.formatToParts(date);
+
+          return `${parts[2].value} ${parts[0].value}.`;
+        },
+      },
+    },
+    yaxis: {
+      labels: {
+        formatter: (val: number): string | string[] => {
+          let result = val.toString();
+
+          if (Math.floor(val) !== val) {
+            result = val.toFixed(3);
+          }
+
+          if (val > 1e5) {
+            result = parseFloat(result).toPrecision(4);
+          }
+
+          return result;
+        },
+      },
     },
     noData: {
       text: 'No Data',
