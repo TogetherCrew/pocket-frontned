@@ -45,7 +45,7 @@ export const PagesHeader = () => {
   return (
     <header className="flex h-16 items-center justify-between bg-surfaceContainerLow px-8 lg:h-28">
       <span className="text-title-large capitalize">
-        {paths[pathname?.split('/').at(1) as keyof PathsObject].title || ''}
+        {paths[pathname?.split('/')?.at(1) as keyof PathsObject]?.title || ''}
       </span>
       <PeriodSelector period={period} onPeriodChange={onPeriodChange} />
     </header>
