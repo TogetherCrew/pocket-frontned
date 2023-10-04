@@ -108,12 +108,12 @@ const LineChartMetric = ({
 
           const date = new Date(val);
           const formatter = new Intl.DateTimeFormat('en-US', {
-            month: 'long',
+            month: 'short',
             day: 'numeric',
           });
           const parts = formatter.formatToParts(date);
 
-          return `${parts[2].value} ${parts[0].value}`;
+          return `${parts[2].value} ${parts[0].value}.`;
         },
       },
     },
