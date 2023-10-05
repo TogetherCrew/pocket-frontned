@@ -29,6 +29,7 @@ type StackedBarCharMetric = {
   isLoading: boolean;
   isError: boolean;
   errorMessage?: string;
+  percentDate?: boolean;
 } & (
   | { multiple: true; data?: Array<MultipleColumnData> }
   | { multiple?: false; data?: Array<SingleColumnData> }
@@ -42,6 +43,7 @@ const StackedBarCharMetric = ({
   isLoading,
   isError,
   errorMessage,
+  percentDate = false,
 }: StackedBarCharMetric) => {
   const theme = useTheme();
 
@@ -71,6 +73,7 @@ const StackedBarCharMetric = ({
     chart: {
       type: 'bar',
       stacked: true,
+      ...(percentDate && { stackType: '100%' }),
       toolbar: {
         show: false,
         autoSelected: 'selection',
