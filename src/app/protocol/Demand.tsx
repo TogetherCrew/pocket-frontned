@@ -33,6 +33,7 @@ export const Demand = () => {
         isError={isError}
         multiple={false}
         errorMessage={error?.message}
+        percentDate={true}
       />
     </div>
   );

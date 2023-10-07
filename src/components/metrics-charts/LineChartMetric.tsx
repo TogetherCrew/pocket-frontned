@@ -123,7 +123,11 @@ const LineChartMetric = ({
           let result = val.toString();
 
           if (Math.floor(val) !== val) {
-            result = val.toFixed(3);
+            if (val < 1e-3) {
+              result = parseFloat(result).toExponential(3);
+            } else {
+              result = val.toFixed(3);
+            }
           }
 
           if (val > 1e5) {

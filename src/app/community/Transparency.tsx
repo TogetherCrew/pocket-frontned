@@ -31,7 +31,9 @@ export const Transparency = () => {
           disabledTimePeriodText="Last month"
           isLoading={isLoading}
           isError={isError}
-          data={data?.metrics.percentage_of_projects_self_reporting.values}
+          data={data?.metrics.percentage_of_projects_self_reporting.values.map(
+            ({ date, value }) => ({ date, value: value * 100 }),
+          )}
           errorMessage={error?.message}
         />
       </div>
