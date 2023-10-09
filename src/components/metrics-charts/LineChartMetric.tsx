@@ -130,7 +130,7 @@ const LineChartMetric = ({
             }
           }
 
-          if (val > 1e5) {
+          if (val > 1e9) {
             result = parseFloat(result).toPrecision(4);
           }
 
