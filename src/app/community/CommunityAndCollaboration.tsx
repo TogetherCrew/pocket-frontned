@@ -1,5 +1,7 @@
 'use client';
 
+import Image from 'next/image';
+
 import { communityApiGateway } from '@/api/community';
 import { DisabledTimePeriod } from '@/components/disabled-time-period';
 import { NumberError } from '@/components/errors';
@@ -42,7 +44,32 @@ const EcosystemProjectsDeliveringImpact = ({
         ) : isError ? (
           <NumberError message={errorMessage} />
         ) : data ? (
-          data.value.toFixed(2)
+          <div className="flex items-center justify-start gap-4">
+            <div>
+              <span>{data.value.toFixed(2)}</span>
+              {data.previous ? (
+                <span>{` / ${data.previous.toFixed(2)}`}</span>
+              ) : (
+                <span>{` / ---`}</span>
+              )}
+            </div>
+            <div>
+              {data.change ? (
+                <span className="flex items-center justify-start">
+                  <Image
+                    src="/images/up.svg"
+                    alt="up icon"
+                    width={24}
+                    height={24}
+                    priority={true}
+                  />
+                  <span className="text-title-medium text-green">
+                    {(data.change * 100).toFixed(2)}
+                  </span>
+                </span>
+              ) : null}
+            </div>
+          </div>
         ) : null}
       </span>
     </div>
