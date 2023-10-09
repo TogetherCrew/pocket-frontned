@@ -4,7 +4,8 @@ export interface StringMetricsResponse {
 
 export interface NumberMetricsResponse {
   value: number;
-  change?: number;
+  previous?: number | null;
+  change?: number | null;
 }
 
 export interface BarChartMetricsResponse {
