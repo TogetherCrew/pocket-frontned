@@ -49,9 +49,7 @@ const EcosystemProjectsDeliveringImpact = ({
               <span>{data.value.toFixed(2)}</span>
               {data.previous ? (
                 <span>{` / ${data.previous.toFixed(2)}`}</span>
-              ) : (
-                <span>{` / ---`}</span>
-              )}
+              ) : null}
             </div>
             <div>
               {data.change ? (
