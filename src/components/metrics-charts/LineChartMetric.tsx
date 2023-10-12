@@ -1,5 +1,7 @@
 'use client';
 
+import { ReactNode } from 'react';
+
 import { useTheme } from '@mui/material';
 import { ApexOptions } from 'apexcharts';
 import dynamic from 'next/dynamic';
@@ -48,7 +50,7 @@ interface LineChartMetricProps {
   color?: 'primary' | 'secondary';
   showDisabledTimePeriod?: boolean;
   disabledTimePeriodText?: string;
-  description?: string;
+  description?: string | ReactNode;
   isLoading: boolean;
   isError: boolean;
   errorMessage?: string;

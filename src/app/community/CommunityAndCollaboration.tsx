@@ -62,7 +62,7 @@ const EcosystemProjectsDeliveringImpact = ({
                     priority={true}
                   />
                   <span className="text-title-medium text-green">
-                    {(data.change * 100).toFixed(2)}
+                    {(data.change * 100).toFixed(2)} %
                   </span>
                 </span>
               ) : null}

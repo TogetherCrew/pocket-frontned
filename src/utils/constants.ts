@@ -9,6 +9,6 @@ export const apiConfig = {
   staleTime: 4 * 60 * 60 * 1000, // 4h
 };
 
-export const DEFAULT_TIME_PERIOD = TimePeriod.LAST_WEEK;
+export const DEFAULT_TIME_PERIOD = TimePeriod.LAST_YEAR;
 
 export const DEFAULT_ERROR_TEXT = 'Oops! Something Went Wrong.';
