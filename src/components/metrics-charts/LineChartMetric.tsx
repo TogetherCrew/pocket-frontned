@@ -105,6 +105,7 @@ const LineChartMetric = ({
       type: 'datetime',
     },
     yaxis: {
+      tickAmount: 7,
       labels: {
         formatter: (val: number): string | string[] => {
           let result = val.toString();
@@ -124,6 +125,8 @@ const LineChartMetric = ({
           return result;
         },
       },
+      min: (min) => (min < 1 ? 0 : min * 0.9),
+      max: (max) => max * 1.1,
     },
     noData: {
       text: 'No Data',
