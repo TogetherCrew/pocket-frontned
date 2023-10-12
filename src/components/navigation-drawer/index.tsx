@@ -22,6 +22,11 @@ const StyledDrawer = styled(Drawer)<StyledDrawerProps>`
     background-color: ${({ theme }) => theme.palette.surfaceContainerLow.main};
     width: ${({ width }) => width + 'rem'};
     border: none;
+  }
+`;
+
+const CurvedDrawer = styled(StyledDrawer)`
+  & .MuiDrawer-paper {
     border-bottom-right-radius: 1rem;
     border-top-right-radius: 1rem;
   }
@@ -41,7 +46,7 @@ export const NavigationDrawer = ({ width }: NavigationDrawerProps) => {
         <DrawerContent />
       </StyledDrawer>
       {/* Small/Medium Screen Version */}
-      <StyledDrawer
+      <CurvedDrawer
         variant="temporary"
         open={isOpen}
         onClose={toggleDrawer}
@@ -51,7 +56,7 @@ export const NavigationDrawer = ({ width }: NavigationDrawerProps) => {
         width={width}
       >
         <DrawerContent />
-      </StyledDrawer>
+      </CurvedDrawer>
     </nav>
   );
 };
