@@ -99,6 +99,7 @@ const CommunityAndCollaboration = () => {
           isError={isError}
           data={data?.metrics.pocket_network_DNA_NPS.values}
           errorMessage={error?.message}
+          percentDate={true}
         />
         <LineChartMetric
           title="Community NPS"
@@ -107,6 +108,7 @@ const CommunityAndCollaboration = () => {
           isError={isError}
           data={data?.metrics.community_NPS.values}
           errorMessage={error?.message}
+          percentDate={true}
         />
       </div>
     </div>

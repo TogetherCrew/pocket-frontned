@@ -54,6 +54,7 @@ interface LineChartMetricProps {
   isLoading: boolean;
   isError: boolean;
   errorMessage?: string;
+  percentDate?: boolean;
 }
 
 const LineChartMetric = ({
@@ -66,6 +67,7 @@ const LineChartMetric = ({
   isLoading,
   isError,
   errorMessage,
+  percentDate = false,
 }: LineChartMetricProps) => {
   const theme = useTheme();
   const series: ApexAxisChartSeries = [
@@ -73,7 +75,7 @@ const LineChartMetric = ({
       name: title,
       data: data
         ? data.map(({ date, value }) => {
-            return { x: date, y: value };
+            return { x: date, y: percentDate ? value * 100 : value };
           })
         : [],
     },
@@ -95,6 +97,10 @@ const LineChartMetric = ({
     tooltip: {
       x: {
         format: 'dd/MM/yyyy',
+      },
+      y: {
+        formatter: (val: number): string =>
+          percentDate ? String(val) + '%' : String(val),
       },
     },
     stroke: {
