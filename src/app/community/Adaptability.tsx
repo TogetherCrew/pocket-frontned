@@ -16,7 +16,7 @@ export const Adaptability = () => {
     <div className="flex flex-col gap-5">
       <div className="text-title-large">Adaptability</div>
       <StackedBarCharMetric
-        title="Velocity of experiments vs number of debated proposals"
+        title="Velocity of Experiments"
         multiple
         isLoading={isLoading}
         isError={isError}
