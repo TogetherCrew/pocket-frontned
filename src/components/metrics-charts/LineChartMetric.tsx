@@ -51,6 +51,8 @@ interface LineChartMetricProps {
   showDisabledTimePeriod?: boolean;
   disabledTimePeriodText?: string;
   description?: string | ReactNode;
+  prefix?: string | ReactNode;
+  toLocalFormat?: boolean;
   isLoading: boolean;
   isError: boolean;
   errorMessage?: string;
@@ -64,6 +66,8 @@ const LineChartMetric = ({
   showDisabledTimePeriod = false,
   disabledTimePeriodText,
   description = '',
+  prefix = '',
+  toLocalFormat = false,
   isLoading,
   isError,
   errorMessage,
@@ -119,7 +123,7 @@ const LineChartMetric = ({
             if (val < 1e-3) {
               result = parseFloat(result).toExponential(3);
             } else {
-              result = val.toFixed(3);
+              result = val.toFixed(2);
             }
           }
 
@@ -129,7 +133,11 @@ const LineChartMetric = ({
             result = '0';
           }
 
-          return result;
+          if (toLocalFormat) {
+            result = parseFloat(result).toLocaleString('en-US');
+          }
+
+          return prefix + result;
         },
       },
     },

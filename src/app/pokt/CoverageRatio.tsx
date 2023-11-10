@@ -17,9 +17,13 @@ export const CoverageRatio = () => {
       title="Coverage Ratio"
       color="secondary"
       description="Protocol revenue / token issuance"
+      prefix="%"
       isLoading={isLoading}
       isError={isError}
-      data={data?.metrics.coverage_ratio.values}
+      data={data?.metrics.coverage_ratio.values.map(({ date, value }) => ({
+        date,
+        value: value * 100,
+      }))}
       errorMessage={error?.message}
     />
   );

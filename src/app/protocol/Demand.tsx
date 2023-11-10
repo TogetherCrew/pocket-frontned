@@ -20,6 +20,7 @@ export const Demand = () => {
       <div className="text-title-large">Demand</div>
       <LineChartMetric
         title="Protocol Revenue"
+        prefix="$"
         color="primary"
         isLoading={isLoading}
         isError={isError}

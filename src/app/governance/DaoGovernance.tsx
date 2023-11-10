@@ -34,6 +34,8 @@ export const DaoGovernance = () => {
               </Link>
             </span>
           }
+          prefix="$"
+          toLocalFormat
           isLoading={isLoading}
           isError={isError}
           data={data?.metrics.DAO_governance_asset_value.values}
@@ -41,7 +43,9 @@ export const DaoGovernance = () => {
         />
         <LineChartMetric
           title="Value ($) of DAO Treasury"
+          prefix="$"
           color="secondary"
+          toLocalFormat
           isLoading={isLoading}
           isError={isError}
           data={data?.metrics.DAO_treasury.values}
