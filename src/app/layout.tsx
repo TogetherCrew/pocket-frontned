@@ -13,6 +13,9 @@ import { DRAWER_WIDTH } from '@/utils/constants';
 export const metadata: Metadata = {
   title: 'Pocket Dashboard',
   description: 'Pocket Dashboard',
+  icons: {
+    icon: '/favicon.svg',
+  },
 };
 
 export default function RootLayout({
