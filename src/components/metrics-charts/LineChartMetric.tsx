@@ -82,12 +82,17 @@ const LineChartMetric = ({
         formatter: (val: number): string => {
           let result = val.toString();
 
-          if (Math.floor(val) !== val) {
-            if (val < 1e-3) {
-              result = parseFloat(result).toExponential(3);
-            } else {
-              result = val.toFixed(2);
-            }
+          const [intSec, floatSec] = (result || '').split('.');
+
+          if (floatSec) {
+            const firstNonZeroIndex = floatSec?.search(/[1-9]/);
+            const leadingZeros = floatSec?.slice(0, firstNonZeroIndex);
+            const remainingNumbers = floatSec?.slice(
+              firstNonZeroIndex,
+              firstNonZeroIndex + (!firstNonZeroIndex ? 2 : 1),
+            );
+
+            result = intSec + '.' + leadingZeros + remainingNumbers;
           }
 
           if (val > 1e9) {
@@ -116,12 +121,17 @@ const LineChartMetric = ({
         formatter: (val: number): string | string[] => {
           let result = val.toString();
 
-          if (Math.floor(val) !== val) {
-            if (val < 1e-3) {
-              result = parseFloat(result).toExponential(3);
-            } else {
-              result = val.toFixed(2);
-            }
+          const [intSec, floatSec] = (result || '').split('.');
+
+          if (floatSec) {
+            const firstNonZeroIndex = floatSec?.search(/[1-9]/);
+            const leadingZeros = floatSec?.slice(0, firstNonZeroIndex);
+            const remainingNumbers = floatSec?.slice(
+              firstNonZeroIndex,
+              firstNonZeroIndex + (!firstNonZeroIndex ? 2 : 1),
+            );
+
+            result = intSec + '.' + leadingZeros + remainingNumbers;
           }
 
           if (val > 1e9) {
