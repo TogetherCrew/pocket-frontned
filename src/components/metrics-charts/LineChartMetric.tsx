@@ -13,32 +13,6 @@ import { PlusJakarta } from '@/font';
 
 const ApexChart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
-export const generateData = (
-  length: number,
-  max: number = 100,
-): LineChartMetricData => {
-  const data: LineChartMetricData = [];
-  const date = new Date();
-  let prevY = Math.floor(Math.random() * max);
-
-  for (let i = 0; i < length; i++) {
-    let y = Math.floor(Math.random() * max);
-
-    while (Math.abs(y - prevY) > max / 10) {
-      y = Math.floor(Math.random() * max);
-    }
-
-    data.push({
-      date: date.toISOString(),
-      value: y,
-    });
-    prevY = y;
-    date.setHours(date.getHours() + 1);
-  }
-
-  return data;
-};
-
 type LineChartMetricData = Array<{
   date: string;
   value: number;
@@ -52,6 +26,7 @@ interface LineChartMetricProps {
   disabledTimePeriodText?: string;
   description?: string | ReactNode;
   prefix?: string | ReactNode;
+  postfix?: string | ReactNode;
   toLocalFormat?: boolean;
   isLoading: boolean;
   isError: boolean;
@@ -67,6 +42,7 @@ const LineChartMetric = ({
   disabledTimePeriodText,
   description = '',
   prefix = '',
+  postfix = '',
   toLocalFormat = false,
   isLoading,
   isError,
@@ -103,8 +79,29 @@ const LineChartMetric = ({
         format: 'dd/MM/yyyy',
       },
       y: {
-        formatter: (val: number): string =>
-          percentDate ? String(val) + '%' : String(val),
+        formatter: (val: number): string => {
+          let result = val.toString();
+
+          if (Math.floor(val) !== val) {
+            if (val < 1e-3) {
+              result = parseFloat(result).toExponential(3);
+            } else {
+              result = val.toFixed(2);
+            }
+          }
+
+          if (val > 1e9) {
+            result = parseFloat(result).toPrecision(4);
+          } else if (val >= 0 && val < 1e-9) {
+            result = '0';
+          }
+
+          if (toLocalFormat) {
+            result = parseFloat(result).toLocaleString('en-US');
+          }
+
+          return prefix + result + postfix;
+        },
       },
     },
     stroke: {
@@ -137,7 +134,7 @@ const LineChartMetric = ({
             result = parseFloat(result).toLocaleString('en-US');
           }
 
-          return prefix + result;
+          return prefix + result + postfix;
         },
       },
     },

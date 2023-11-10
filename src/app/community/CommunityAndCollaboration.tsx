@@ -95,20 +95,20 @@ const CommunityAndCollaboration = () => {
         <LineChartMetric
           title="Pocket Network DNA NPS"
           color="secondary"
+          postfix="%"
           isLoading={isLoading}
           isError={isError}
           data={data?.metrics.pocket_network_DNA_NPS.values}
           errorMessage={error?.message}
-          percentDate={true}
         />
         <LineChartMetric
           title="Community NPS"
           color="secondary"
+          postfix="%"
           isLoading={isLoading}
           isError={isError}
           data={data?.metrics.community_NPS.values}
           errorMessage={error?.message}
-          percentDate={true}
         />
       </div>
     </div>
