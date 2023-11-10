@@ -20,10 +20,8 @@ export const CoverageRatio = () => {
       postfix="%"
       isLoading={isLoading}
       isError={isError}
-      data={data?.metrics.coverage_ratio.values.map(({ date, value }) => ({
-        date,
-        value: value * 100,
-      }))}
+      data={data?.metrics.coverage_ratio.values}
+      percentDate={true}
       errorMessage={error?.message}
     />
   );

@@ -20,10 +20,8 @@ export const AnnualizedYield = () => {
       postfix="%"
       isLoading={isLoading}
       isError={isError}
-      data={data?.metrics.annualised_yield.values.map(({ date, value }) => ({
-        date,
-        value: value * 100,
-      }))}
+      data={data?.metrics.annualised_yield.values}
+      percentDate={true}
       errorMessage={error?.message}
     />
   );

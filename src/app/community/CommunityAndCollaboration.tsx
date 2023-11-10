@@ -98,6 +98,7 @@ const CommunityAndCollaboration = () => {
           postfix="%"
           isLoading={isLoading}
           isError={isError}
+          percentDate={true}
           data={data?.metrics.pocket_network_DNA_NPS.values}
           errorMessage={error?.message}
         />
@@ -105,6 +106,7 @@ const CommunityAndCollaboration = () => {
           title="Community NPS"
           color="secondary"
           postfix="%"
+          percentDate={true}
           isLoading={isLoading}
           isError={isError}
           data={data?.metrics.community_NPS.values}

@@ -29,6 +29,7 @@ export const Transparency = () => {
           color="secondary"
           disabledTimePeriodText="Last month"
           postfix="%"
+          percentDate={true}
           isLoading={isLoading}
           isError={isError}
           data={data?.metrics.percentage_of_projects_self_reporting.values}
