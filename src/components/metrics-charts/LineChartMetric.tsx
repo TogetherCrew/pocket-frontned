@@ -43,7 +43,7 @@ const LineChartMetric = ({
   description = '',
   prefix = '',
   postfix = '',
-  toLocalFormat = false,
+  toLocalFormat = true,
   isLoading,
   isError,
   errorMessage,
