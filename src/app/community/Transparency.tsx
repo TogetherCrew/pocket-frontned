@@ -27,7 +27,6 @@ export const Transparency = () => {
         <LineChartMetric
           title="Percentage of projects self-reporting"
           color="secondary"
-          showDisabledTimePeriod={true}
           disabledTimePeriodText="Last month"
           isLoading={isLoading}
           isError={isError}

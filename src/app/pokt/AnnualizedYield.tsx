@@ -17,9 +17,13 @@ export const AnnualizedYield = () => {
       title="Annualised yield"
       color="primary"
       description="Protocol revenue / circulating supply"
+      prefix="%"
       isLoading={isLoading}
       isError={isError}
-      data={data?.metrics.annualised_yield.values}
+      data={data?.metrics.annualised_yield.values.map(({ date, value }) => ({
+        date,
+        value: value * 100,
+      }))}
       errorMessage={error?.message}
     />
   );
