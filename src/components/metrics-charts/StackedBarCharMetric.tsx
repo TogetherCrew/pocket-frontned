@@ -23,6 +23,45 @@ export type MultipleColumnData = {
   }>;
 };
 
+const extractMultipleColumnData = (
+  data: Array<MultipleColumnData>,
+): Record<string, number[]> => {
+  const keys = new Set<string>();
+
+  for (const dataElement of data) {
+    const { values } = dataElement;
+
+    for (const value of values) {
+      keys.add(value.name);
+    }
+  }
+
+  const keysArray = Array.from(keys.values());
+
+  const initialData: Record<string, number[]> = keysArray.reduce(
+    (acc, key) => ({ ...acc, [key]: [] }),
+    {},
+  );
+
+  return data.reduce((acc, { values }) => {
+    const currentDataMap = new Map();
+
+    for (const key of keysArray) {
+      currentDataMap.set(key, 0);
+    }
+
+    for (const { name, value } of values) {
+      currentDataMap.set(name, value);
+    }
+
+    currentDataMap.forEach((value, key) => {
+      acc[key] = [...acc[key], value];
+    });
+
+    return acc;
+  }, initialData);
+};
+
 type StackedBarCharMetric = {
   title: string;
   description?: string;
@@ -52,11 +91,7 @@ const StackedBarCharMetric = ({
   });
 
   const chartSeriesData = multiple
-    ? (data || []).reduce<Record<string, number[]>>((acc, { values }) => {
-        return values.reduce((innerAcc, { name, value }) => {
-          return { ...innerAcc, [name]: [...(innerAcc[name] || []), value] };
-        }, acc);
-      }, {})
+    ? extractMultipleColumnData(data || [])
     : { [title]: (data || []).map(({ value }) => value) };
 
   const series: ApexAxisChartSeries =
