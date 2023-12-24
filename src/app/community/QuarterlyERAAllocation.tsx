@@ -9,7 +9,7 @@ export const QuarterlyERAAllocation = () => {
 
   return (
     <div className="flex flex-col gap-5">
-      <div className="text-title-large">Quarterly ERA Allocation</div>
+      <div className="text-title-large">ERA Allocation</div>
       <div className="flex flex-row flex-wrap justify-between gap-5 lg:flex-nowrap">
         <LinearProgressMetric
           total={data?.metrics?.amount_of_budget_spent_vs_available?.total || 0}
