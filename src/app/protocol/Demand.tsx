@@ -29,6 +29,7 @@ export const Demand = () => {
         isError={isError}
         data={data?.metrics.protocol_revenue.values}
         errorMessage={error?.message}
+        xAxisLabelFormat="MMM yy"
       />
       <StackedBarCharMetric
         title="Gateway Operator Share of Relays"
@@ -44,9 +45,10 @@ export const Demand = () => {
         data={data?.metrics.gateway_operator_share_of_relays.values}
         isLoading={isLoading}
         isError={isError}
-        multiple={false}
+        multiple={true}
         errorMessage={error?.message}
         percentDate={true}
+        // xAxisLabelFormat="MMM yy"
       />
     </div>
   );

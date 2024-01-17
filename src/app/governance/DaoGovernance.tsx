@@ -99,6 +99,7 @@ export const DaoGovernance = () => {
             },
           ).values
         }
+        xAxisLabelFormat="MMM yy"
       />
     </div>
   );

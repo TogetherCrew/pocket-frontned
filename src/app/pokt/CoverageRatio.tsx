@@ -23,6 +23,7 @@ export const CoverageRatio = () => {
       data={data?.metrics.coverage_ratio.values}
       percentDate={true}
       errorMessage={error?.message}
+      xAxisLabelFormat="MMM yy"
     />
   );
 };

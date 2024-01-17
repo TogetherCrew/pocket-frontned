@@ -71,6 +71,7 @@ type StackedBarCharMetric = {
   isError: boolean;
   errorMessage?: string;
   percentDate?: boolean;
+  xAxisLabelFormat?: string;
 } & (
   | { multiple: true; data?: Array<MultipleColumnData> }
   | { multiple?: false; data?: Array<SingleColumnData> }
@@ -85,6 +86,7 @@ const StackedBarCharMetric = ({
   isError,
   errorMessage,
   percentDate = false,
+  xAxisLabelFormat,
 }: StackedBarCharMetric) => {
   const theme = useTheme();
 
@@ -144,6 +146,39 @@ const StackedBarCharMetric = ({
     xaxis: {
       type: 'datetime',
       categories: dates,
+      ...(xAxisLabelFormat && {
+        labels: {
+          format: xAxisLabelFormat,
+        },
+      }),
+    },
+    yaxis: {
+      labels: {
+        formatter: (val: number): string | string[] => {
+          let result = val.toString();
+
+          const [intSec, floatSec] = (result || '').split('.');
+
+          if (floatSec) {
+            const firstNonZeroIndex = floatSec?.search(/[1-9]/);
+            const leadingZeros = floatSec?.slice(0, firstNonZeroIndex);
+            const remainingNumbers = floatSec?.slice(
+              firstNonZeroIndex,
+              firstNonZeroIndex + (!firstNonZeroIndex ? 2 : 1),
+            );
+
+            result = intSec + '.' + leadingZeros + remainingNumbers;
+          }
+
+          if (val > 1e9) {
+            result = parseFloat(result).toPrecision(4);
+          } else if (val >= 0 && val < 1e-9) {
+            result = '0';
+          }
+
+          return result;
+        },
+      },
     },
     fill: {
       opacity: 1,

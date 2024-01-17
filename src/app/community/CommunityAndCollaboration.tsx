@@ -28,7 +28,7 @@ const EcosystemProjectsDeliveringImpact = ({
       <div className="flex flex-col gap-2">
         <div className="flex items-center justify-between">
           <span className="text-title-medium">
-            Ecosystem projects delivering impact
+            Ecosystem Projects Delivering Impact
           </span>
           <div className="bg-zinc-700 flex w-[125px] items-center justify-center rounded-lg bg-opacity-10">
             <DisabledTimePeriod>Last 2 months</DisabledTimePeriod>
@@ -105,7 +105,7 @@ const CommunityAndCollaboration = () => {
           percentDate={true}
           data={data?.metrics.pocket_network_DNA_NPS.values}
           errorMessage={error?.message}
-          xAxisLabelFormat="yy/MM"
+          xAxisLabelFormat="MMM yy"
         />
         <LineChartMetric
           title="Community NPS"
@@ -117,6 +117,7 @@ const CommunityAndCollaboration = () => {
           isError={isError}
           data={data?.metrics.community_NPS.values}
           errorMessage={error?.message}
+          xAxisLabelFormat="MMM yy"
         />
       </div>
     </div>

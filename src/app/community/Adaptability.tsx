@@ -25,6 +25,7 @@ export const Adaptability = () => {
           data?.metrics.velocity_of_experiments_v_no_debated_proposals.values
         }
         errorMessage={error?.message}
+        xAxisLabelFormat="MMM yy"
       />
     </div>
   );

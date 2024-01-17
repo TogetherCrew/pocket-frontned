@@ -19,6 +19,7 @@ export const Liquidity = () => {
       isError={isError}
       data={data?.metrics.POKT_liquidity.values}
       errorMessage={error?.message}
+      // xAxisLabelFormat="MMM yy"
     />
   );
 };

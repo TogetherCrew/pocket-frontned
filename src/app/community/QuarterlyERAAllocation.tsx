@@ -12,9 +12,21 @@ export const QuarterlyERAAllocation = () => {
       <div className="text-title-large">ERA Allocation</div>
       <div className="flex flex-row flex-wrap justify-between gap-5 lg:flex-nowrap">
         <LinearProgressMetric
-          total={data?.metrics?.amount_of_budget_spent_vs_available?.total || 0}
+          total={
+            Number(
+              data?.metrics?.amount_of_budget_spent_vs_available?.total.replaceAll(
+                ',',
+                '',
+              ),
+            ) || 0
+          }
           current={
-            data?.metrics?.amount_of_budget_spent_vs_available?.current || 0
+            Number(
+              data?.metrics?.amount_of_budget_spent_vs_available?.current.replaceAll(
+                ',',
+                '',
+              ),
+            ) || 0
           }
           title="Quarterly ERA Allocation"
           description="Amount of budget spent vs available."

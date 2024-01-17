@@ -57,7 +57,7 @@ export const LinearProgressMetric = ({
               component="span"
               sx={{ transform: `translateX(${childTranslate}%)` }}
             >
-              {current}
+              {current.toLocaleString()}
             </Box>
           </Box>
           <LinearProgress
@@ -66,7 +66,7 @@ export const LinearProgressMetric = ({
             color={color}
           />
           <div className="mb-0.5 mt-2 flex w-full justify-end text-title-small">
-            <span>{total}</span>
+            <span>{total.toLocaleString()}</span>
           </div>
         </div>
       )}

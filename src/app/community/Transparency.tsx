@@ -24,7 +24,7 @@ export const Transparency = () => {
           isError={isError}
           data={data?.metrics.projects_working_in_the_open.values}
           errorMessage={error?.message}
-          xAxisLabelFormat="yy/MM"
+          xAxisLabelFormat="MMM yy"
         />
         <LineChartMetric
           title="Percentage of Open Projects Self-Reporting"

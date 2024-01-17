@@ -47,8 +47,8 @@ export type GetAdaptabilityResponse = GetAdaptabilitySuccessResponse | ApiError;
 
 export type GetQuarterlyERAAllocationSuccessResponse = ApiResponse<{
   amount_of_budget_spent_vs_available: {
-    current: number;
-    total: number;
+    current: string;
+    total: string;
   };
 }>;
 

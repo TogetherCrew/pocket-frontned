@@ -75,6 +75,7 @@ type MultiAreaChartMetric = {
   postfix?: string | ReactNode;
   toLocalFormat?: boolean;
   chartColors?: ApexOptions['colors'];
+  xAxisLabelFormat?: string;
 } & (
   | { multiple: true; data?: Array<MultiAreaData> }
   | { multiple?: false; data?: Array<SingleAreaData> }
@@ -92,6 +93,7 @@ export const MultiAreaChartMetric = ({
   postfix = '',
   toLocalFormat = true,
   chartColors,
+  xAxisLabelFormat,
 }: MultiAreaChartMetric) => {
   const theme = useTheme();
 
@@ -150,6 +152,11 @@ export const MultiAreaChartMetric = ({
     xaxis: {
       type: 'datetime',
       categories: dates,
+      ...(xAxisLabelFormat && {
+        labels: {
+          format: xAxisLabelFormat,
+        },
+      }),
     },
     yaxis: {
       labels: {

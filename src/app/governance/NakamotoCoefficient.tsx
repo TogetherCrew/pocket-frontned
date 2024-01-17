@@ -24,6 +24,7 @@ export const NakamotoCoefficient = () => {
           isError={isError}
           data={data?.metrics.validators_to_control_protocol.values}
           errorMessage={error?.message}
+          xAxisLabelFormat="MMM yy"
         />
         <LineChartMetric
           title="Voters to Control DAO"
@@ -33,6 +34,7 @@ export const NakamotoCoefficient = () => {
           isError={isError}
           data={data?.metrics.voters_to_control_DAO.values}
           errorMessage={error?.message}
+          xAxisLabelFormat="MMM yy"
         />
       </div>
     </div>
