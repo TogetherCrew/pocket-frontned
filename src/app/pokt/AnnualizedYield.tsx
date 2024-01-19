@@ -23,7 +23,7 @@ export const AnnualizedYield = () => {
       data={data?.metrics.annualised_yield.values}
       percentDate={true}
       errorMessage={error?.message}
-      xAxisLabelFormat="MMM yy"
+      xAxisLabelFormat="MMM yyyy"
     />
   );
 };

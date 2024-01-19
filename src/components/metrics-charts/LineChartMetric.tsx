@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode } from 'react';
+import { ReactNode, useMemo } from 'react';
 
 import { useTheme } from '@mui/material';
 import { ApexOptions } from 'apexcharts';
@@ -33,6 +33,7 @@ interface LineChartMetricProps {
   errorMessage?: string;
   percentDate?: boolean;
   xAxisLabelFormat?: string;
+  yAxisAutomatedMax?: boolean;
 }
 
 const LineChartMetric = ({
@@ -50,6 +51,7 @@ const LineChartMetric = ({
   errorMessage,
   percentDate = false,
   xAxisLabelFormat,
+  yAxisAutomatedMax,
 }: LineChartMetricProps) => {
   const theme = useTheme();
   const series: ApexAxisChartSeries = [
@@ -62,6 +64,38 @@ const LineChartMetric = ({
         : [],
     },
   ];
+
+  // set Min and Max date for single data
+  const minMaxDate = useMemo(() => {
+    if (data) {
+      const dateStr = data[0]?.date;
+
+      if (dateStr) {
+        const minDate = new Date(dateStr);
+        const maxDate = new Date(dateStr);
+
+        // Reduce one month
+        minDate.setMonth(minDate.getMonth() - 1);
+        maxDate.setMonth(maxDate.getMonth() + 1);
+
+        // Convert to timestamp
+        return {
+          minDate: minDate.getTime(),
+          maxDate: maxDate.getTime(),
+        };
+      }
+    }
+  }, [data]);
+
+  const isSingleData = data?.length === 1;
+
+  const maxValue = useMemo(() => {
+    const values = data?.map(({ value }) => value) || [];
+    const max = Math.max(...values);
+
+    return percentDate ? max * 100 : max;
+  }, [data, percentDate]);
+
   const options: ApexOptions = {
     chart: {
       toolbar: {
@@ -115,11 +149,28 @@ const LineChartMetric = ({
       curve: 'smooth',
       width: 2,
     },
+    ...(isSingleData && {
+      markers: {
+        size: 5,
+        hover: {
+          size: 9,
+        },
+        showNullDataPoints: false,
+      },
+    }),
     xaxis: {
       type: 'datetime',
+      tickPlacement: 'between',
+      ...(isSingleData &&
+        minMaxDate && {
+          min: minMaxDate.minDate,
+          max: minMaxDate.maxDate,
+        }),
       ...(xAxisLabelFormat && {
         labels: {
           format: xAxisLabelFormat,
+          showDuplicates: false,
+          // hideOverlappingLabels: true,
         },
       }),
     },
@@ -128,17 +179,10 @@ const LineChartMetric = ({
         formatter: (val: number): string | string[] => {
           let result = val.toString();
 
-          const [intSec, floatSec] = (result || '').split('.');
+          const [, floatSec] = (result || '').split('.');
 
           if (floatSec) {
-            const firstNonZeroIndex = floatSec?.search(/[1-9]/);
-            const leadingZeros = floatSec?.slice(0, firstNonZeroIndex);
-            const remainingNumbers = floatSec?.slice(
-              firstNonZeroIndex,
-              firstNonZeroIndex + (!firstNonZeroIndex ? 2 : 1),
-            );
-
-            result = intSec + '.' + leadingZeros + remainingNumbers;
+            result = val.toFixed(0);
           }
 
           if (val > 1e9) {
@@ -154,6 +198,10 @@ const LineChartMetric = ({
           return prefix + result + postfix;
         },
       },
+      ...(yAxisAutomatedMax && {
+        max: maxValue + 3,
+        min: 0,
+      }),
     },
     noData: {
       text: 'No Data',
