@@ -14,7 +14,7 @@ export const QuarterlyERAAllocation = () => {
         <LinearProgressMetric
           total={
             Number(
-              data?.metrics?.amount_of_budget_spent_vs_available?.total.replaceAll(
+              data?.metrics?.amount_of_budget_spent_vs_available?.total?.replaceAll(
                 ',',
                 '',
               ),
@@ -22,7 +22,7 @@ export const QuarterlyERAAllocation = () => {
           }
           current={
             Number(
-              data?.metrics?.amount_of_budget_spent_vs_available?.current.replaceAll(
+              data?.metrics?.amount_of_budget_spent_vs_available?.current?.replaceAll(
                 ',',
                 '',
               ),
