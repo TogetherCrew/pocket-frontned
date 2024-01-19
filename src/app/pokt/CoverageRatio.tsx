@@ -16,13 +16,14 @@ export const CoverageRatio = () => {
     <LineChartMetric
       title="Coverage Ratio"
       color="secondary"
-      description="Protocol revenue / token issuance"
+      description="Protocol Revenue / Token Issuance"
       postfix="%"
       isLoading={isLoading}
       isError={isError}
       data={data?.metrics.coverage_ratio.values}
       percentDate={true}
       errorMessage={error?.message}
+      xAxisLabelFormat="MMM yy"
     />
   );
 };

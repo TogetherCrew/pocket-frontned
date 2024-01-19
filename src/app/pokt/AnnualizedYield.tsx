@@ -14,15 +14,16 @@ export const AnnualizedYield = () => {
 
   return (
     <LineChartMetric
-      title="Annualised yield"
+      title="Annualized Yield"
       color="primary"
-      description="Protocol revenue / circulating supply"
+      description="Protocol Revenue / Circulating Supply"
       postfix="%"
       isLoading={isLoading}
       isError={isError}
       data={data?.metrics.annualised_yield.values}
       percentDate={true}
       errorMessage={error?.message}
+      xAxisLabelFormat="MMM yy"
     />
   );
 };

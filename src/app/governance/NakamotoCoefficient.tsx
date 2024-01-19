@@ -17,20 +17,24 @@ export const NakamotoCoefficient = () => {
       <div className="text-title-large">Nakamoto Coefficient</div>
       <div className="flex flex-row flex-wrap justify-between gap-5 lg:flex-nowrap">
         <LineChartMetric
-          title="Validators to control protocol"
+          title="Validators to Control Protocol"
+          description="Number of validators needed to take over the network."
           color="primary"
           isLoading={isLoading}
           isError={isError}
           data={data?.metrics.validators_to_control_protocol.values}
           errorMessage={error?.message}
+          xAxisLabelFormat="MMM yy"
         />
         <LineChartMetric
-          title="Voters to control DAO"
+          title="Voters to Control DAO"
+          description="Number of voters needed to take over the network."
           color="secondary"
           isLoading={isLoading}
           isError={isError}
           data={data?.metrics.voters_to_control_DAO.values}
           errorMessage={error?.message}
+          xAxisLabelFormat="MMM yy"
         />
       </div>
     </div>

@@ -16,13 +16,14 @@ export const Collaboration = () => {
     <div className="flex flex-col gap-5">
       <div className="text-title-large">Collaboration</div>
       <StackedBarCharMetric
-        title="Proposals from community vs core contributors"
+        title="Proposals from Community vs Core Contributors"
         multiple
-        description="Velocity of community driven vs pni/pnf driven enhancements"
+        description="Velocity of community driven vs PNF + Grove driven enhancements."
         isLoading={isLoading}
         isError={isError}
         data={data?.metrics.proposals_from_community_v_core_contributors.values}
         errorMessage={error?.message}
+        xAxisLabelFormat="MMM yy"
       />
     </div>
   );

@@ -6,64 +6,118 @@ import { useTheme } from '@mui/material';
 import { ApexOptions } from 'apexcharts';
 import dynamic from 'next/dynamic';
 
-import { DisabledTimePeriod } from '@/components/disabled-time-period';
 import { ChartError } from '@/components/errors';
 import { ChartSkeleton } from '@/components/skeletons';
 import { PlusJakarta } from '@/font';
 
 const ApexChart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
-type LineChartMetricData = Array<{
+export type SingleAreaData = {
   date: string;
   value: number;
-}>;
+};
 
-interface LineChartMetricProps {
+export type MultiAreaData = {
+  date: string;
+  values: Array<{
+    name: string;
+    value: number;
+  }>;
+};
+
+const extractMultipleAreaData = (
+  data: Array<MultiAreaData>,
+): Record<string, number[]> => {
+  const keys = new Set<string>();
+
+  for (const dataElement of data) {
+    const { values } = dataElement;
+
+    for (const value of values) {
+      keys.add(value.name);
+    }
+  }
+
+  const keysArray = Array.from(keys.values());
+
+  const initialData: Record<string, number[]> = keysArray.reduce(
+    (acc, key) => ({ ...acc, [key]: [] }),
+    {},
+  );
+
+  return data.reduce((acc, { values }) => {
+    const currentDataMap = new Map();
+
+    for (const key of keysArray) {
+      currentDataMap.set(key, 0);
+    }
+
+    for (const { name, value } of values) {
+      currentDataMap.set(name, value);
+    }
+
+    currentDataMap.forEach((value, key) => {
+      acc[key] = [...acc[key], value];
+    });
+
+    return acc;
+  }, initialData);
+};
+
+type MultiAreaChartMetric = {
   title: string;
-  data?: LineChartMetricData;
-  color?: 'primary' | 'secondary';
-  showDisabledTimePeriod?: boolean;
-  disabledTimePeriodText?: string;
   description?: string | ReactNode;
-  prefix?: string | ReactNode;
-  postfix?: string | ReactNode;
-  toLocalFormat?: boolean;
   isLoading: boolean;
   isError: boolean;
   errorMessage?: string;
   percentDate?: boolean;
+  prefix?: string | ReactNode;
+  postfix?: string | ReactNode;
+  toLocalFormat?: boolean;
+  chartColors?: ApexOptions['colors'];
   xAxisLabelFormat?: string;
-}
+} & (
+  | { multiple: true; data?: Array<MultiAreaData> }
+  | { multiple?: false; data?: Array<SingleAreaData> }
+);
 
-const LineChartMetric = ({
+export const MultiAreaChartMetric = ({
   title,
+  multiple,
   data,
-  color = 'primary',
-  showDisabledTimePeriod = false,
-  disabledTimePeriodText,
-  description = '',
-  prefix = '',
-  postfix = '',
-  toLocalFormat = true,
+  description,
   isLoading,
   isError,
   errorMessage,
-  percentDate = false,
+  prefix = '',
+  postfix = '',
+  toLocalFormat = true,
+  chartColors,
   xAxisLabelFormat,
-}: LineChartMetricProps) => {
+}: MultiAreaChartMetric) => {
   const theme = useTheme();
-  const series: ApexAxisChartSeries = [
-    {
-      name: title,
-      data: data
-        ? data.map(({ date, value }) => {
-            return { x: date, y: percentDate ? value * 100 : value };
-          })
-        : [],
-    },
-  ];
+
+  const dates = data?.map(({ date }) => {
+    return date;
+  });
+
+  const chartSeriesData = multiple
+    ? extractMultipleAreaData(data || [])
+    : { [title]: (data || []).map(({ value }) => value) };
+
+  const series: ApexAxisChartSeries =
+    data && chartSeriesData
+      ? Object.keys(chartSeriesData).map((key) => {
+          return {
+            name: key.replaceAll('_', ' '),
+            data: chartSeriesData[key],
+          };
+        })
+      : [];
+
   const options: ApexOptions = {
     chart: {
+      type: 'area',
       toolbar: {
         show: false,
         autoSelected: 'selection',
@@ -75,40 +129,20 @@ const LineChartMetric = ({
     dataLabels: {
       enabled: false,
     },
-    colors: [theme.palette[color].main],
+    colors: chartColors || [
+      theme.palette['orange'].main,
+      theme.palette['green'].main,
+      theme.palette['pink'].main,
+    ],
     tooltip: {
       x: {
         format: 'yyyy/MM/dd',
       },
-      y: {
-        formatter: (val: number): string => {
-          let result = val.toString();
-
-          const [intSec, floatSec] = (result || '').split('.');
-
-          if (floatSec) {
-            const firstNonZeroIndex = floatSec?.search(/[1-9]/);
-            const leadingZeros = floatSec?.slice(0, firstNonZeroIndex);
-            const remainingNumbers = floatSec?.slice(
-              firstNonZeroIndex,
-              firstNonZeroIndex + (!firstNonZeroIndex ? 2 : 1),
-            );
-
-            result = intSec + '.' + leadingZeros + remainingNumbers;
-          }
-
-          if (val > 1e9) {
-            result = parseFloat(result).toPrecision(4);
-          } else if (val >= 0 && val < 1e-9) {
-            result = '0';
-          }
-
-          if (toLocalFormat) {
-            result = parseFloat(result).toLocaleString('en-US');
-          }
-
-          return prefix + result + postfix;
-        },
+    },
+    plotOptions: {
+      bar: {
+        borderRadius: 4,
+        columnWidth: '25%',
       },
     },
     stroke: {
@@ -117,6 +151,7 @@ const LineChartMetric = ({
     },
     xaxis: {
       type: 'datetime',
+      categories: dates,
       ...(xAxisLabelFormat && {
         labels: {
           format: xAxisLabelFormat,
@@ -155,6 +190,9 @@ const LineChartMetric = ({
         },
       },
     },
+    fill: {
+      opacity: 1,
+    },
     noData: {
       text: 'No Data',
       style: {
@@ -165,17 +203,12 @@ const LineChartMetric = ({
 
   return (
     <div className="flex h-72 w-full flex-col gap-6 rounded-2xl bg-surfaceContainerLow p-5">
-      <div className="flex flex-row justify-between">
-        <div className="text-title-small sm:text-title-semi-large">
-          <p className="m-0">{title}</p>
-          {description ? (
-            <p className="m-0 mt-1 text-body-medium italic text-onSurfaceVariant">
-              {description}
-            </p>
-          ) : null}
-        </div>
-        {showDisabledTimePeriod ? (
-          <DisabledTimePeriod>{disabledTimePeriodText}</DisabledTimePeriod>
+      <div className="text-title-small sm:text-title-semi-large">
+        <p className="m-0">{title}</p>
+        {description ? (
+          <p className="m-0 mt-1 text-body-medium text-onSurfaceVariant">
+            {description}
+          </p>
         ) : null}
       </div>
       <div className="h-full w-full">
@@ -195,5 +228,3 @@ const LineChartMetric = ({
     </div>
   );
 };
-
-export { LineChartMetric };
