@@ -160,7 +160,6 @@ const LineChartMetric = ({
     }),
     xaxis: {
       type: 'datetime',
-      tickPlacement: 'between',
       ...(isSingleData &&
         minMaxDate && {
           min: minMaxDate.minDate,
