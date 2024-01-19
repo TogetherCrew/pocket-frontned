@@ -181,7 +181,7 @@ const LineChartMetric = ({
           const [, floatSec] = (result || '').split('.');
 
           if (floatSec) {
-            result = val.toFixed(0);
+            result = val?.toFixed(0);
           }
 
           if (val > 1e9) {
