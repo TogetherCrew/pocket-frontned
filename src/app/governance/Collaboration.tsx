@@ -23,7 +23,7 @@ export const Collaboration = () => {
         isError={isError}
         data={data?.metrics.proposals_from_community_v_core_contributors.values}
         errorMessage={error?.message}
-        xAxisLabelFormat="MMM yy"
+        xAxisLabelFormat="MMM yyyy"
       />
     </div>
   );

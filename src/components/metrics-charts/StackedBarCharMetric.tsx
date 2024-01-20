@@ -136,8 +136,7 @@ const StackedBarCharMetric = ({
     },
     plotOptions: {
       bar: {
-        borderRadius: 4,
-        columnWidth: '25%',
+        columnWidth: '300%',
       },
     },
     stroke: {

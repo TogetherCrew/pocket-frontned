@@ -105,7 +105,7 @@ const CommunityAndCollaboration = () => {
           percentDate={true}
           data={data?.metrics.pocket_network_DNA_NPS.values}
           errorMessage={error?.message}
-          xAxisLabelFormat="MMM yy"
+          xAxisLabelFormat="MMM yyyy"
         />
         <LineChartMetric
           title="Community NPS"
@@ -117,7 +117,7 @@ const CommunityAndCollaboration = () => {
           isError={isError}
           data={data?.metrics.community_NPS.values}
           errorMessage={error?.message}
-          xAxisLabelFormat="MMM yy"
+          xAxisLabelFormat="MMM yyyy"
         />
       </div>
     </div>

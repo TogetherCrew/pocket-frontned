@@ -22,7 +22,7 @@ export const Awareness = () => {
         isError={isError}
         data={data?.metrics.twitter_followers.values}
         errorMessage={error?.message}
-        xAxisLabelFormat="MMM yy"
+        xAxisLabelFormat="MMM yyyy"
       />
     </div>
   );
