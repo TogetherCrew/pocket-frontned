@@ -7,6 +7,7 @@ import {
   LineChartMetric,
   StackedBarCharMetric,
 } from '@/components/metrics-charts';
+import { MultipleColumnData } from '@/components/metrics-charts/StackedBarCharMetric';
 import { useGetTimePeriodSearchParam } from '@/hooks/use-get-time-peroiod-search-param';
 
 export const Demand = () => {
@@ -42,7 +43,10 @@ export const Demand = () => {
             Relay Distribution by Gateway
           </Link>
         }
-        data={data?.metrics.gateway_operator_share_of_relays.values}
+        data={
+          data?.metrics.gateway_operator_share_of_relays
+            .values as MultipleColumnData[]
+        }
         isLoading={isLoading}
         isError={isError}
         multiple={true}
