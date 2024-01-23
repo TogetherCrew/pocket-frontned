@@ -22,7 +22,7 @@ export const Adaptability = () => {
           date: data.date,
           values: [
             {
-              name: 'No debated proposals count',
+              name: '# debated proposals',
               value:
                 data.values[0].name === 'No debated proposals count'
                   ? data.values[0].value
