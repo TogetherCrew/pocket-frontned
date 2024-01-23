@@ -4,6 +4,7 @@ import Link from 'next/link';
 
 import { governanceApiGateway } from '@/api/governance';
 import { MultiAreaChartMetric } from '@/components/metrics-charts';
+import { MultiAreaData } from '@/components/metrics-charts/MultiAreaChartMetric';
 import { useGetTimePeriodSearchParam } from '@/hooks/use-get-time-peroiod-search-param';
 import {
   AreaChartMetricsResponse,
@@ -50,12 +51,45 @@ export const DaoGovernance = () => {
       groupedByDate[item.date].push({ name: item.name, value: item.value });
     });
 
-    // Transform grouped data to the desired structure
     const mergedResponse: StackedBarChartMetricsResponse = {
-      values: Object.keys(groupedByDate).map((date) => ({
-        date,
-        values: groupedByDate[date],
-      })),
+      values: Object.keys(groupedByDate).map((date) => {
+        if (groupedByDate[date].length === 1) {
+          if (groupedByDate[date][0].name === response1.name) {
+            return {
+              date,
+              values: [
+                {
+                  name: response1.name,
+                  value: groupedByDate[date][0].value,
+                },
+                {
+                  name: response2.name,
+                  value: null,
+                },
+              ],
+            };
+          } else {
+            return {
+              date,
+              values: [
+                {
+                  name: response1.name,
+                  value: null,
+                },
+                {
+                  name: response2.name,
+                  value: groupedByDate[date][0].value,
+                },
+              ],
+            };
+          }
+        } else {
+          return {
+            date,
+            values: groupedByDate[date],
+          };
+        }
+      }),
     };
 
     return mergedResponse;
@@ -97,7 +131,7 @@ export const DaoGovernance = () => {
               value: data?.metrics.DAO_treasury || { values: [] },
               name: 'Value ($) of DAO Treasury',
             },
-          ).values
+          ).values as MultiAreaData[]
         }
         xAxisLabelFormat="MMM yyyy"
       />

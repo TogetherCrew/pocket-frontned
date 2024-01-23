@@ -142,7 +142,7 @@ export const MultiAreaChartMetric = ({
     plotOptions: {
       bar: {
         borderRadius: 4,
-        columnWidth: '25%',
+        columnWidth: '100%',
       },
     },
     stroke: {
@@ -161,7 +161,7 @@ export const MultiAreaChartMetric = ({
     yaxis: {
       labels: {
         formatter: (val: number): string | string[] => {
-          let result = val.toString();
+          let result = val?.toString();
 
           const [intSec, floatSec] = (result || '').split('.');
 

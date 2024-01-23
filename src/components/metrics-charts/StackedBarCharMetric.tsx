@@ -71,6 +71,8 @@ type StackedBarCharMetric = {
   isError: boolean;
   errorMessage?: string;
   percentDate?: boolean;
+  showDecimal?: boolean;
+  postfix?: string;
   xAxisLabelFormat?: string;
 } & (
   | { multiple: true; data?: Array<MultipleColumnData> }
@@ -86,6 +88,7 @@ const StackedBarCharMetric = ({
   isError,
   errorMessage,
   percentDate = false,
+  postfix = '',
   xAxisLabelFormat,
 }: StackedBarCharMetric) => {
   const theme = useTheme();
@@ -101,9 +104,13 @@ const StackedBarCharMetric = ({
   const series: ApexAxisChartSeries =
     data && chartSeriesData
       ? Object.keys(chartSeriesData).map((key) => {
+          const PercentageValue = chartSeriesData[key].map((value) => {
+            return value * 100;
+          });
+
           return {
             name: key.replaceAll('_', ' '),
-            data: chartSeriesData[key],
+            data: PercentageValue,
           };
         })
       : [];
@@ -175,7 +182,7 @@ const StackedBarCharMetric = ({
             result = '0';
           }
 
-          return result;
+          return result + postfix;
         },
       },
     },

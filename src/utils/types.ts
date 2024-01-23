@@ -29,7 +29,7 @@ export interface StackedBarChartMetricsResponse {
     date: string;
     values: {
       name: string;
-      value: number;
+      value: number | null;
     }[];
   }[];
 }
