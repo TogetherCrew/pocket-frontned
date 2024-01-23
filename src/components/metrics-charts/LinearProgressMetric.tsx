@@ -35,7 +35,7 @@ export const LinearProgressMetric = ({
         <div className="text-title-small sm:text-title-semi-large">
           <p className="m-0">{title}</p>
           {description ? (
-            <p className="m-0 mt-1 text-body-medium italic text-onSurfaceVariant">
+            <p className="m-0 mt-1 text-body-large italic text-onSurfaceVariant">
               {description}
             </p>
           ) : null}
