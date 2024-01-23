@@ -42,7 +42,7 @@ export const Adaptability = () => {
   }, [data?.metrics.velocity_of_experiments_v_no_debated_proposals.values]);
 
   return (
-    <div className="flex flex-col gap-5">
+    <div className="flex flex-col gap-5 ">
       <div className="text-title-large">Adaptability</div>
       <MultiAreaChartMetric
         title="Velocity of Experiments"
