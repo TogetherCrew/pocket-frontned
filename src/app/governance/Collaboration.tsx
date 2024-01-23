@@ -2,6 +2,7 @@
 
 import { governanceApiGateway } from '@/api/governance';
 import { StackedBarCharMetric } from '@/components/metrics-charts';
+import { MultipleColumnData } from '@/components/metrics-charts/StackedBarCharMetric';
 import { useGetTimePeriodSearchParam } from '@/hooks/use-get-time-peroiod-search-param';
 
 export const Collaboration = () => {
@@ -21,7 +22,10 @@ export const Collaboration = () => {
         description="Velocity of community driven vs PNF + Grove driven enhancements."
         isLoading={isLoading}
         isError={isError}
-        data={data?.metrics.proposals_from_community_v_core_contributors.values}
+        data={
+          data?.metrics.proposals_from_community_v_core_contributors
+            .values as MultipleColumnData[]
+        }
         errorMessage={error?.message}
         xAxisLabelFormat="MMM yyyy"
       />
