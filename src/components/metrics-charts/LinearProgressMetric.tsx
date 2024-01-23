@@ -48,7 +48,7 @@ export const LinearProgressMetric = ({
       ) : (
         <div>
           <Box
-            className="mb-1 mt-0.5 flex justify-end"
+            className="mb-1 mt-0.5 flex justify-end text-title-small"
             sx={{
               transform: `translateX(${parentTranslate}%)`,
             }}
