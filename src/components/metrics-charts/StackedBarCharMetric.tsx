@@ -105,7 +105,7 @@ const StackedBarCharMetric = ({
     data && chartSeriesData
       ? Object.keys(chartSeriesData).map((key) => {
           const PercentageValue = chartSeriesData[key].map((value) => {
-            return value * 100;
+            return percentDate ? value * 100 : value;
           });
 
           return {
