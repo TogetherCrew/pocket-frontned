@@ -46,6 +46,7 @@ export const Demand = () => {
         isLoading={isLoading}
         isError={isError}
         multiple={true}
+        postfix="%"
         errorMessage={error?.message}
         percentDate={true}
         // xAxisLabelFormat="MMM yy"

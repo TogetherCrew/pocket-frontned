@@ -22,6 +22,7 @@ export const AnnualizedYield = () => {
       isError={isError}
       data={data?.metrics.annualised_yield.values}
       percentDate={true}
+      showDecimal
       errorMessage={error?.message}
       xAxisLabelFormat="MMM yyyy"
     />

@@ -32,6 +32,7 @@ interface LineChartMetricProps {
   isError: boolean;
   errorMessage?: string;
   percentDate?: boolean;
+  showDecimal?: boolean;
   xAxisLabelFormat?: string;
   yAxisAutomatedMax?: boolean;
 }
@@ -50,6 +51,7 @@ const LineChartMetric = ({
   isError,
   errorMessage,
   percentDate = false,
+  showDecimal = true,
   xAxisLabelFormat,
   yAxisAutomatedMax,
 }: LineChartMetricProps) => {
@@ -178,9 +180,18 @@ const LineChartMetric = ({
         formatter: (val: number): string | string[] => {
           let result = val.toString();
 
-          const [, floatSec] = (result || '').split('.');
+          const [intSec, floatSec] = (result || '').split('.');
 
-          if (floatSec) {
+          if (floatSec && showDecimal) {
+            const firstNonZeroIndex = floatSec?.search(/[1-9]/);
+            const leadingZeros = floatSec?.slice(0, firstNonZeroIndex);
+            const remainingNumbers = floatSec?.slice(
+              firstNonZeroIndex,
+              firstNonZeroIndex + (!firstNonZeroIndex ? 2 : 1),
+            );
+
+            result = intSec + '.' + leadingZeros + remainingNumbers;
+          } else if (floatSec) {
             result = val?.toFixed(0);
           }
 
@@ -199,6 +210,9 @@ const LineChartMetric = ({
       },
       ...(yAxisAutomatedMax && {
         max: maxValue + 3,
+        min: 0,
+      }),
+      ...(percentDate && {
         min: 0,
       }),
     },
