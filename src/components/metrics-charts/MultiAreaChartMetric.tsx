@@ -190,6 +190,13 @@ export const MultiAreaChartMetric = ({
         },
       },
     },
+    markers: {
+      size: 5,
+      hover: {
+        size: 9,
+      },
+      showNullDataPoints: true,
+    },
     fill: {
       opacity: 1,
     },
