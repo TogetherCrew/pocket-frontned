@@ -29,7 +29,7 @@ export const QuarterlyERAAllocation = () => {
             ) || 0
           }
           title="Quarterly ERA Allocation"
-          description="Amount of budget spent vs available."
+          description="Amount of $POKT spent vs available."
           isLoading={isLoading}
           isError={isError}
           errorMessage={error?.message}
