@@ -27,14 +27,14 @@ const EcosystemProjectsDeliveringImpact = ({
     <div className="flex w-full flex-col gap-3 rounded-2xl bg-surfaceContainerLow p-5">
       <div className="flex flex-col gap-2">
         <div className="flex items-center justify-between">
-          <span className="text-title-medium">
+          <span className="text-title-small sm:text-title-semi-large">
             Ecosystem Projects Delivering Impact
           </span>
           <div className="bg-zinc-700 flex w-[125px] items-center justify-center rounded-lg bg-opacity-10">
             <DisabledTimePeriod>Last 2 months</DisabledTimePeriod>
           </div>
         </div>
-        <div className="text-body-medium italic text-onSurfaceVariant">
+        <div className="m-0 mt-1 text-body-large italic text-onSurfaceVariant">
           <p className="m-0 p-0">
             All open Sockets, POPs, and contributors currently.
           </p>
