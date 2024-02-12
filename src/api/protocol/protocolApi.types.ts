@@ -2,7 +2,7 @@ import {
   ApiError,
   ApiResponse,
   AreaChartMetricsResponse,
-  BarChartMetricsResponse,
+  StackedBarChartMetricsResponse,
   StringMetricsResponse,
   TimePeriodRequestParameter,
 } from '@/utils/types';
@@ -19,7 +19,7 @@ export interface GetDemandRequest extends TimePeriodRequestParameter {}
 
 export type GetDemandSuccessResponse = ApiResponse<{
   protocol_revenue: AreaChartMetricsResponse;
-  gateway_operator_share_of_relays: BarChartMetricsResponse;
+  gateway_operator_share_of_relays: StackedBarChartMetricsResponse;
 }>;
 
 export type GetDemandResponse = GetDemandSuccessResponse | ApiError;

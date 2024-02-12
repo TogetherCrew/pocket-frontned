@@ -12,12 +12,12 @@ import { PlusJakarta } from '@/font';
 
 const ApexChart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
-export type SingleColumnData = {
+export type SingleAreaData = {
   date: string;
   value: number;
 };
 
-export type MultipleColumnData = {
+export type MultiAreaData = {
   date: string;
   values: Array<{
     name: string;
@@ -25,8 +25,8 @@ export type MultipleColumnData = {
   }>;
 };
 
-const extractMultipleColumnData = (
-  data: Array<MultipleColumnData>,
+const extractMultipleAreaData = (
+  data: Array<MultiAreaData>,
 ): Record<string, number[]> => {
   const keys = new Set<string>();
 
@@ -64,22 +64,24 @@ const extractMultipleColumnData = (
   }, initialData);
 };
 
-type StackedBarCharMetric = {
+type MultiAreaChartMetric = {
   title: string;
   description?: string | ReactNode;
   isLoading: boolean;
   isError: boolean;
   errorMessage?: string;
   percentDate?: boolean;
-  showDecimal?: boolean;
-  postfix?: string;
+  prefix?: string | ReactNode;
+  postfix?: string | ReactNode;
+  toLocalFormat?: boolean;
+  chartColors?: ApexOptions['colors'];
   xAxisLabelFormat?: string;
 } & (
-  | { multiple: true; data?: Array<MultipleColumnData> }
-  | { multiple?: false; data?: Array<SingleColumnData> }
+  | { multiple: true; data?: Array<MultiAreaData> }
+  | { multiple?: false; data?: Array<SingleAreaData> }
 );
 
-const StackedBarCharMetric = ({
+export const MultiAreaChartMetric = ({
   title,
   multiple,
   data,
@@ -87,10 +89,12 @@ const StackedBarCharMetric = ({
   isLoading,
   isError,
   errorMessage,
-  percentDate = false,
+  prefix = '',
   postfix = '',
+  toLocalFormat = true,
+  chartColors,
   xAxisLabelFormat,
-}: StackedBarCharMetric) => {
+}: MultiAreaChartMetric) => {
   const theme = useTheme();
 
   const dates = data?.map(({ date }) => {
@@ -98,28 +102,22 @@ const StackedBarCharMetric = ({
   });
 
   const chartSeriesData = multiple
-    ? extractMultipleColumnData(data || [])
+    ? extractMultipleAreaData(data || [])
     : { [title]: (data || []).map(({ value }) => value) };
 
   const series: ApexAxisChartSeries =
     data && chartSeriesData
       ? Object.keys(chartSeriesData).map((key) => {
-          const PercentageValue = chartSeriesData[key].map((value) => {
-            return percentDate ? value * 100 : value;
-          });
-
           return {
             name: key.replaceAll('_', ' '),
-            data: PercentageValue,
+            data: chartSeriesData[key],
           };
         })
       : [];
 
   const options: ApexOptions = {
     chart: {
-      type: 'bar',
-      stacked: true,
-      ...(percentDate && { stackType: '100%' }),
+      type: 'area',
       toolbar: {
         show: false,
         autoSelected: 'selection',
@@ -131,7 +129,7 @@ const StackedBarCharMetric = ({
     dataLabels: {
       enabled: false,
     },
-    colors: [
+    colors: chartColors || [
       theme.palette['orange'].main,
       theme.palette['green'].main,
       theme.palette['pink'].main,
@@ -143,11 +141,13 @@ const StackedBarCharMetric = ({
     },
     plotOptions: {
       bar: {
-        columnWidth: '300%',
+        borderRadius: 4,
+        columnWidth: '100%',
       },
     },
     stroke: {
       curve: 'smooth',
+      width: 2,
     },
     xaxis: {
       type: 'datetime',
@@ -161,7 +161,7 @@ const StackedBarCharMetric = ({
     yaxis: {
       labels: {
         formatter: (val: number): string | string[] => {
-          let result = val.toString();
+          let result = val?.toString();
 
           const [intSec, floatSec] = (result || '').split('.');
 
@@ -182,9 +182,20 @@ const StackedBarCharMetric = ({
             result = '0';
           }
 
-          return result + postfix;
+          if (toLocalFormat) {
+            result = parseFloat(result).toLocaleString('en-US');
+          }
+
+          return prefix + result + postfix;
         },
       },
+    },
+    markers: {
+      size: 5,
+      hover: {
+        size: 9,
+      },
+      showNullDataPoints: true,
     },
     fill: {
       opacity: 1,
@@ -202,7 +213,7 @@ const StackedBarCharMetric = ({
       <div className="text-title-small sm:text-title-semi-large">
         <p className="m-0">{title}</p>
         {description ? (
-          <p className="m-0 mt-1 text-body-large italic text-onSurfaceVariant">
+          <p className="m-0 mt-1 text-body-large italic text-onSurfaceVariant ">
             {description}
           </p>
         ) : null}
@@ -217,12 +228,10 @@ const StackedBarCharMetric = ({
             series={series}
             options={options}
             height="100%"
-            type="bar"
+            type="area"
           />
         ) : null}
       </div>
     </div>
   );
 };
-
-export { StackedBarCharMetric };

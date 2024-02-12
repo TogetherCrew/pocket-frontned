@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode } from 'react';
+import { ReactNode, useMemo } from 'react';
 
 import { useTheme } from '@mui/material';
 import { ApexOptions } from 'apexcharts';
@@ -32,6 +32,9 @@ interface LineChartMetricProps {
   isError: boolean;
   errorMessage?: string;
   percentDate?: boolean;
+  showDecimal?: boolean;
+  xAxisLabelFormat?: string;
+  yAxisAutomatedMax?: boolean;
 }
 
 const LineChartMetric = ({
@@ -48,6 +51,9 @@ const LineChartMetric = ({
   isError,
   errorMessage,
   percentDate = false,
+  showDecimal = true,
+  xAxisLabelFormat,
+  yAxisAutomatedMax,
 }: LineChartMetricProps) => {
   const theme = useTheme();
   const series: ApexAxisChartSeries = [
@@ -60,6 +66,38 @@ const LineChartMetric = ({
         : [],
     },
   ];
+
+  // set Min and Max date for single data
+  const minMaxDate = useMemo(() => {
+    if (data) {
+      const dateStr = data[0]?.date;
+
+      if (dateStr) {
+        const minDate = new Date(dateStr);
+        const maxDate = new Date(dateStr);
+
+        // Reduce one month
+        minDate.setMonth(minDate.getMonth() - 1);
+        maxDate.setMonth(maxDate.getMonth() + 1);
+
+        // Convert to timestamp
+        return {
+          minDate: minDate.getTime(),
+          maxDate: maxDate.getTime(),
+        };
+      }
+    }
+  }, [data]);
+
+  const isSingleData = data?.length === 1;
+
+  const maxValue = useMemo(() => {
+    const values = data?.map(({ value }) => value) || [];
+    const max = Math.max(...values);
+
+    return percentDate ? max * 100 : max;
+  }, [data, percentDate]);
+
   const options: ApexOptions = {
     chart: {
       toolbar: {
@@ -76,7 +114,7 @@ const LineChartMetric = ({
     colors: [theme.palette[color].main],
     tooltip: {
       x: {
-        format: 'dd/MM/yyyy',
+        format: 'yyyy/MM/dd',
       },
       y: {
         formatter: (val: number): string => {
@@ -113,8 +151,29 @@ const LineChartMetric = ({
       curve: 'smooth',
       width: 2,
     },
+    ...(isSingleData && {
+      markers: {
+        size: 5,
+        hover: {
+          size: 9,
+        },
+        showNullDataPoints: false,
+      },
+    }),
     xaxis: {
       type: 'datetime',
+      ...(isSingleData &&
+        minMaxDate && {
+          min: minMaxDate.minDate,
+          max: minMaxDate.maxDate,
+        }),
+      ...(xAxisLabelFormat && {
+        labels: {
+          format: xAxisLabelFormat,
+          showDuplicates: false,
+          // hideOverlappingLabels: true,
+        },
+      }),
     },
     yaxis: {
       labels: {
@@ -123,7 +182,7 @@ const LineChartMetric = ({
 
           const [intSec, floatSec] = (result || '').split('.');
 
-          if (floatSec) {
+          if (floatSec && showDecimal) {
             const firstNonZeroIndex = floatSec?.search(/[1-9]/);
             const leadingZeros = floatSec?.slice(0, firstNonZeroIndex);
             const remainingNumbers = floatSec?.slice(
@@ -132,6 +191,8 @@ const LineChartMetric = ({
             );
 
             result = intSec + '.' + leadingZeros + remainingNumbers;
+          } else if (floatSec) {
+            result = val?.toFixed(0);
           }
 
           if (val > 1e9) {
@@ -147,6 +208,13 @@ const LineChartMetric = ({
           return prefix + result + postfix;
         },
       },
+      ...(yAxisAutomatedMax && {
+        max: maxValue + 3,
+        min: 0,
+      }),
+      ...(percentDate && {
+        min: 0,
+      }),
     },
     noData: {
       text: 'No Data',
@@ -162,7 +230,7 @@ const LineChartMetric = ({
         <div className="text-title-small sm:text-title-semi-large">
           <p className="m-0">{title}</p>
           {description ? (
-            <p className="m-0 mt-1 text-body-medium text-onSurfaceVariant">
+            <p className="m-0 mt-1 text-body-large italic text-onSurfaceVariant">
               {description}
             </p>
           ) : null}

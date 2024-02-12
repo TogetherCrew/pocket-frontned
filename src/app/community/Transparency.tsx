@@ -17,15 +17,19 @@ export const Transparency = () => {
       <div className="text-title-large">Transparency</div>
       <div className="flex flex-row flex-wrap justify-between gap-5 lg:flex-nowrap">
         <LineChartMetric
-          title="Projects working in the open"
+          title="Open Source Projects"
+          description="Any project working through a Socket or POP, updated monthly."
           color="primary"
           isLoading={isLoading}
           isError={isError}
           data={data?.metrics.projects_working_in_the_open.values}
           errorMessage={error?.message}
+          xAxisLabelFormat="MMM yyyy"
+          yAxisAutomatedMax
         />
         <LineChartMetric
-          title="Percentage of projects self-reporting"
+          title="Percentage of Open Projects Self-Reporting"
+          description="Any Socket or POP reporting at the end of the month, updated monthly."
           color="secondary"
           disabledTimePeriodText="Last month"
           postfix="%"
@@ -34,6 +38,7 @@ export const Transparency = () => {
           isError={isError}
           data={data?.metrics.percentage_of_projects_self_reporting.values}
           errorMessage={error?.message}
+          xAxisLabelFormat="MMM yyyy"
         />
       </div>
     </div>
