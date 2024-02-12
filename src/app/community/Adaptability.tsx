@@ -16,24 +16,49 @@ export const Adaptability = () => {
   });
 
   const filteredData = useMemo(() => {
+    let lastDebatedValue: number | null = null;
+    let lastVelocityValue: number | null = null;
+
     return data?.metrics.velocity_of_experiments_v_no_debated_proposals.values?.map(
-      (data) => {
+      (entry) => {
+        const debatedProposalsEntry = entry.values.find(
+          (v) => v.name === 'No debated proposals count',
+        );
+        const velocityOfExperimentsEntry = entry.values.find(
+          (v) => v.name === 'Velocity of experiments',
+        );
+
+        const debatedProposalsValue = debatedProposalsEntry
+          ? debatedProposalsEntry.value
+          : null;
+        const velocityOfExperimentsValue = velocityOfExperimentsEntry
+          ? velocityOfExperimentsEntry.value
+          : null;
+
+        if (debatedProposalsValue !== null) {
+          lastDebatedValue = debatedProposalsValue;
+        }
+
+        if (velocityOfExperimentsValue !== null) {
+          lastVelocityValue = velocityOfExperimentsValue;
+        }
+
         return {
-          date: data.date,
+          date: entry.date,
           values: [
             {
               name: '# debated proposals',
               value:
-                data.values[0].name === 'No debated proposals count'
-                  ? data.values[0].value
-                  : null,
+                debatedProposalsValue !== null
+                  ? debatedProposalsValue
+                  : lastDebatedValue,
             },
             {
               name: 'Velocity of experiments',
               value:
-                data.values[0].name === 'Velocity of experiments'
-                  ? data.values[0].value
-                  : null,
+                velocityOfExperimentsValue !== null
+                  ? velocityOfExperimentsValue
+                  : lastVelocityValue,
             },
           ],
         };
