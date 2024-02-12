@@ -38,6 +38,7 @@ export const Adaptability = () => {
         if (debatedProposalsValue !== null) {
           lastDebatedValue = debatedProposalsValue;
         }
+
         if (velocityOfExperimentsValue !== null) {
           lastVelocityValue = velocityOfExperimentsValue;
         }
